@@ -1,19 +1,37 @@
 package ru.zheleznikov.apimesto;
 
+import groovy.json.JsonOutput;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import jdk.jfr.Description;
 import org.junit.jupiter.api.Test;
 import org.testng.Assert;
 
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 import static ru.zheleznikov.apimesto.Specification.reqSpec;
 
+import org.json.*;
+
 public class ApiTests extends BaseApiTests {
+
+    @Test
+    public void getJson() throws IOException {
+        Scanner sc = new Scanner(new File("src/main/resources/signin.json"));
+        String jsonFile = "";
+        while (sc.hasNextLine()) {
+            jsonFile += sc.nextLine();
+        }
+        JSONObject obj = new JSONObject(jsonFile);
+        System.out.println(obj.getString("email")); //John
+        System.out.println(obj.getString("password")); //John
+    }
+
 
 
     @Test
