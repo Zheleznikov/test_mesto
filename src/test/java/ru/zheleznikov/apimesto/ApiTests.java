@@ -15,49 +15,31 @@ import java.util.Scanner;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 import static ru.zheleznikov.apimesto.Specification.reqSpec;
+import static ru.zheleznikov.utils.CommonUtils.getSigninJson;
 
 import org.json.*;
+import ru.zheleznikov.jsonClasses.Signin;
 
 public class ApiTests extends BaseApiTests {
 
     @Test
-    public void getJson() throws IOException {
-        Scanner sc = new Scanner(new File("src/main/resources/signin.json"));
-        String jsonFile = "";
-        while (sc.hasNextLine()) {
-            jsonFile += sc.nextLine();
-        }
-        JSONObject obj = new JSONObject(jsonFile);
-        System.out.println(obj.getString("email")); //John
-        System.out.println(obj.getString("password")); //John
-    }
-
-
-
-    @Test
     @Description("1. /signin - positive signing check")
-    public void signinTestPositive() {
+    public void signinTestPositive() throws IOException {
+        Signin apiSignin = getSigninJson();
+
         given()
-                .spec(reqSpec(correctRequestData))
+                .spec(reqSpec(apiSignin))
                 .when()
                 .post(signin)
                 .then()
                 .log().all()
                 .statusCode(200)
-                .body("user.email", equalTo("cat@cat.cat"))
+                .body("user.email", equalTo(apiSignin.getEmail()))
                 .body("message", equalTo("ok"))
                 .body("token", notNullValue());
     }
 
-    @Test
-    @Description("2. /signin - negative signing check - wrong email")
-    public void signinTestNegativeWrongEmail() {
-    }
 
-    @Test
-    @Description("3. /signin - negative signing check - wrong password")
-    public void signinTestNegativeWrongPass() {
-    }
 
 
     @Test
