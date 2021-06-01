@@ -1,6 +1,8 @@
 package ru.zheleznikov.apimesto;
 
 import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
+import jdk.jfr.Description;
 import org.junit.jupiter.api.Test;
 import org.testng.Assert;
 
@@ -9,38 +11,57 @@ import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
+import static ru.zheleznikov.apimesto.Specification.reqSpec;
 
 public class ApiTests extends BaseApiTests {
 
 
     @Test
-    public void signinTest() {
-        Response response = given()
-                .contentType("application/json")
-                .body(correctRequestData)
+    @Description("1. /signin - positive signing check")
+    public void signinTestPositive() {
+        given()
+                .spec(reqSpec(correctRequestData))
                 .when()
-                .post(apiHost + signin)
+                .post(signin)
                 .then()
-                .log().body()
-                .extract()
-                .response();
+                .log().all()
+                .statusCode(200)
+                .body("user.email", equalTo("cat@cat.cat"))
+                .body("message", equalTo("ok"))
+                .body("token", notNullValue());
+    }
+
+    @Test
+    @Description("2. /signin - negative signing check - wrong email")
+    public void signinTestNegativeWrongEmail() {
+    }
+
+    @Test
+    @Description("3. /signin - negative signing check - wrong password")
+    public void signinTestNegativeWrongPass() {
+    }
 
 
-        String token = "Bearer " + response.jsonPath().get("token");
-        System.out.println(token);
-        String email = response.jsonPath().get("user.email");
-        System.out.println(email);
+    @Test
+    public void getMyData() {
+        String token = getToken();
+        given()
+                .spec(reqSpec(""))
+                .header("authorization", token)
+                .when()
+                .get(me)
+                .then()
+                .log().all();
+    }
 
-        // get info about me
-
-//        given()
-//                .contentType("application/json")
-//                .header("Authorization", token)
-//                .when()
-//                .get(apiHost + "me")
-//                .then()
-//                .log().all();
-
+    @Test
+    public void getCards() {
+        given()
+                .spec(reqSpec(""))
+                .when()
+                .get("cards")
+                .then()
+                .log().headers();
     }
 
 

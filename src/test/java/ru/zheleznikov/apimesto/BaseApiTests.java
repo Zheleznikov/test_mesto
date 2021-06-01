@@ -3,10 +3,14 @@ package ru.zheleznikov.apimesto;
 import java.util.HashMap;
 import java.util.Map;
 
+import static io.restassured.RestAssured.given;
+import static ru.zheleznikov.apimesto.Specification.reqSpec;
+
 public class BaseApiTests {
     // apiHost
-    protected final static String apiHost = "https://api-mesto.zheleznikov.ru/";
+    public final static String apiHost = "https://api-mesto.zheleznikov.ru/";
     protected final static String signin = "signin";
+    protected final static String me = "me";
 
     // signin Data
     protected final static Map<String, String> correctRequestData = new HashMap<>();
@@ -26,6 +30,16 @@ public class BaseApiTests {
     static {
         correctRequestData.put(emailKey, correctEmail);
         correctRequestData.put(passKey, correctPass);
+    }
+
+    protected static String getToken() {
+        return "Bearer " + given()
+                .spec(reqSpec(correctRequestData))
+                .when()
+                .post(signin)
+                .then()
+                .extract()
+                .path("token");
     }
 
 }
