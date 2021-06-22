@@ -1,6 +1,6 @@
 pipeline {
-//     agent { docker { image 'maven:3.3.3' } }
-    agent any
+    agent { docker { image 'maven:3.3.3' } }
+//     agent any
 
 
     stages {
@@ -8,7 +8,7 @@ pipeline {
             steps {
                 echo 'building the application...'
                 sh 'mvn --version'
-                sh 'mvn - clean install'
+                sh 'mvn clean install'
             }
         }
 
@@ -16,10 +16,8 @@ pipeline {
             steps {
                 echo 'run tests...'
                 sh 'mvn test'
-
-
             }
-//         }
+        }
 //
 //         stage("deploy") {
 //             steps {
