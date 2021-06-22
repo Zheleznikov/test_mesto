@@ -1,5 +1,10 @@
 pipeline {
-    agent { docker { image 'maven:3.3.3' } }
+    agent {
+        docker {
+            image "maven 3.6.0-jdk11"
+        }
+
+    }
 //     agent any
 
 
