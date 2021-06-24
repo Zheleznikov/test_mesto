@@ -19,7 +19,7 @@ pipeline {
 //                 echo 'run tests...'
 //                 sh 'mvn test'
 //             }
-        }
+//         }
 //
 //         stage("deploy") {
 //             steps {
