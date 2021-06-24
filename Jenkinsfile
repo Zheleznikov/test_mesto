@@ -14,11 +14,11 @@ pipeline {
             }
         }
 
-        stage("test") {
-            steps {
-                echo 'run tests...'
-                sh 'mvn test'
-            }
+//         stage("test") {
+//             steps {
+//                 echo 'run tests...'
+//                 sh 'mvn test'
+//             }
         }
 //
 //         stage("deploy") {
