@@ -1,16 +1,11 @@
 pipeline {
-//     agent {
-//         docker {
-//             image 'maven:3.8.1-adoptopenjdk-11'
-//             args '-v $HOME/.m2:/root/.m2'
-//         }
-//     } 
-    agent any
+    agent {
+        docker { image 'node:14-alpine' }
+    }
     stages {
-        stage('Stage 1') {
+        stage('Test') {
             steps {
-                echo 'Hello world!' 
-                // sh 'mvn --version'
+                sh 'node --version'
             }
         }
     }
