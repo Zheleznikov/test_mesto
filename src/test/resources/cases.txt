@@ -1,0 +1,22 @@
+1. Add card
+   a. add card in API
+       1. Add card in API
+       2. Check API
+       3. Check Mongo
+
+   b. add card in UI as signed user
+       1.Add card
+   c. add card in UI as unsigned user
+
+2. Delete card
+    1. Delete card in UI
+    2. Check UI
+    3. Check API
+    4. Check Mongo
+
+3. Add like
+
+4. Delete like
+
+5. Change info about user
+
