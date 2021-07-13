@@ -24,7 +24,7 @@ public class ApiHelper extends ApiHelperBase {
 
     public String addCard(String body) {
         Response res = reqPostCard(body);
-        return res.then().log().body().extract().path("data._id");
+        return res.then().extract().path("data._id");
     }
 
 
