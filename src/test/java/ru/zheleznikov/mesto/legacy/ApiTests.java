@@ -1,24 +1,16 @@
-package ru.zheleznikov.apimesto;
+package ru.zheleznikov.mesto.legacy;
 
-import groovy.json.JsonOutput;
-import io.restassured.response.Response;
-import io.restassured.specification.RequestSpecification;
 import jdk.jfr.Description;
 import org.junit.jupiter.api.Test;
-import org.testng.Assert;
 
 import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
-import static ru.zheleznikov.apimesto.Specification.reqSpec;
-import static ru.zheleznikov.utils.CommonUtils.*;
+import static ru.zheleznikov.mesto.legacy.Specification.reqSpec;
+import static ru.zheleznikov.mesto.legacy.LegacyHelper.*;
 
-import org.json.*;
-import ru.zheleznikov.jsonClasses.Signin;
+import ru.zheleznikov.mesto.model.Signin;
 
 public class ApiTests extends BaseApiTests {
 

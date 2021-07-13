@@ -1,13 +1,13 @@
-package ru.zheleznikov.utils;
+package ru.zheleznikov.mesto.legacy;
 
 import org.json.JSONObject;
-import ru.zheleznikov.jsonClasses.Signin;
+import ru.zheleznikov.mesto.model.Signin;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class CommonUtils {
+public class LegacyHelper {
 
     /**
      *     1 способ. Получение содержимого файла, как объект с типом данных JSONObject
@@ -39,7 +39,8 @@ public class CommonUtils {
 
     public static Signin getSigninJson() throws IOException {
         JSONObject obj = getJson("src/main/resources/signin.json");
-        return new Signin(obj.getString("email"), obj.getString("password"));
+        return new Signin().withEmail(obj.getString("email"))
+                .withPassword(obj.getString("password"));
     }
 
     public static String getSigninJson2() throws IOException {

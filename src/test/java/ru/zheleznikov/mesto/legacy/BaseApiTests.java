@@ -1,10 +1,10 @@
-package ru.zheleznikov.apimesto;
+package ru.zheleznikov.mesto.legacy;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static io.restassured.RestAssured.given;
-import static ru.zheleznikov.apimesto.Specification.reqSpec;
+import static ru.zheleznikov.mesto.legacy.Specification.reqSpec;
 
 public class BaseApiTests {
     // apiHost

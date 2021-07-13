@@ -1,15 +1,12 @@
-package ru.zheleznikov.apimesto;
+package ru.zheleznikov.mesto.legacy;
 
 import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.builder.ResponseBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 
-import java.util.HashMap;
-
-import static ru.zheleznikov.apimesto.BaseApiTests.apiHost;
+import static ru.zheleznikov.mesto.legacy.BaseApiTests.apiHost;
 
 public class Specification {
 
