@@ -19,9 +19,9 @@ public class Test_2_deleteCard extends TestBase {
         cardsBefore.remove(cardToDelete);
         app.api().deleteCard(cardToDelete.get_id());
         List<Card> cardsAfter = generateCardList(app.api().getCards());
+
         assertThat(cardsBefore.size(), equalTo(cardsAfter.size()));
         assertThat(cardsBefore, equalTo(cardsAfter));
-
     }
 
 

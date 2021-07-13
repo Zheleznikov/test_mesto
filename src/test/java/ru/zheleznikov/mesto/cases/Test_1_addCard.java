@@ -8,13 +8,18 @@ import java.util.List;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static ru.zheleznikov.mesto.utils.CommonHelper.getRandomLink;
+import static ru.zheleznikov.mesto.utils.CommonHelper.getRandomName;
 import static ru.zheleznikov.mesto.utils.JsonHelper.*;
 
 public class Test_1_addCard extends TestBase {
 
     Card cardToAdd = new Card()
-            .withName("Черный лебедь")
-            .withLink("https://images.unsplash.com/photo-1576806112200-cb6902182bde?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=314&q=80");
+            .withName(getRandomName())
+            .withLink(getRandomLink());
+
+    public Test_1_addCard() throws IOException {
+    }
 
     @Test
     public void testAddCard_Api() {
@@ -37,5 +42,10 @@ public class Test_1_addCard extends TestBase {
 
         assertThat(cardsBefore.size(), equalTo(cardsAfter.size()));
         assertThat(cardsBefore, equalTo(cardsAfter));
+    }
+
+    @Test
+    public void testim() throws IOException {
+        getRandomLink();
     }
 }
