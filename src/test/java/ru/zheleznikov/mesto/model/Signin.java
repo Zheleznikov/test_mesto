@@ -1,15 +1,8 @@
-package ru.zheleznikov.jsonClasses;
+package ru.zheleznikov.mesto.model;
 
 public class Signin {
     private String email;
     private String password;
-
-    public Signin() {super();}
-
-    public Signin(String email, String password) {
-        this.email = email;
-        this.password = password;
-    }
 
     public String getEmail() {
         return email;
@@ -19,11 +12,13 @@ public class Signin {
         return password;
     }
 
-    public void setEmail(String email) {
+    public Signin withEmail(String email) {
         this.email = email;
+        return this;
     }
 
-    public void setPassword(String password) {
+    public Signin withPassword(String password) {
         this.password = password;
+        return this;
     }
 }
