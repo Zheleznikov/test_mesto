@@ -24,15 +24,11 @@ public class ApiHelper extends ApiHelperBase {
 
     public String addCard(String body) {
         Response res = reqPostCard(body);
-        return res.then().extract().path("data._id");
+        return res.then().statusCode(200).extract().path("data._id");
     }
 
 
-
-
-
-
-
-
-
+    public void deleteCard(String id) {
+        reqDeleteCardId(id).then().statusCode(200);
+    }
 }

@@ -4,11 +4,13 @@ import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import org.junit.jupiter.api.Test;
 import ru.zheleznikov.mesto.model.Signin;
 
 import java.io.IOException;
 
 import static io.restassured.RestAssured.given;
+import static ru.zheleznikov.mesto.legacy.Specification.reqSpec;
 
 public class ApiHelperBase extends HelperBase {
 
@@ -43,6 +45,16 @@ public class ApiHelperBase extends HelperBase {
                 .body(body)
                 .when()
                 .post("cards");
+    }
+
+    protected Response reqDeleteCardId(String id) {
+        return given()
+                .spec(reqSpec())
+                .header("authorization", getToken())
+                .when()
+                .delete("cards/" + id);
+
+
     }
 
     private String getToken() {

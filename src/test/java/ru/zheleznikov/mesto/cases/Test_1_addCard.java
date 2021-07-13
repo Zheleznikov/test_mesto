@@ -23,6 +23,7 @@ public class Test_1_addCard extends TestBase {
         String cardToAdd_id = app.api().addCard(body);
         cardsBefore.add(cardToAdd.with_id(cardToAdd_id));
         List<Card> cardsAfter = generateCardList(app.api().getCards());
+        assertThat(cardsBefore.size(), equalTo(cardsAfter.size()));
         assertThat(cardsBefore, equalTo(cardsAfter));
     }
 
