@@ -13,7 +13,6 @@ public class JsonHelper {
     public static List<Card> generateCardList(List<Object> cardsFromApi) {
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(cardsFromApi);
-        System.out.println(json);
         return gson.fromJson(json, new TypeToken<List<Card>>() {}.getType());// List<Card>.class
     }
 
@@ -24,7 +23,6 @@ public class JsonHelper {
     public static Card generateCard(Object card) {
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(card);
-        System.out.println(json);
         return gson.fromJson(json, Card.class);// Card.class
     }
 
@@ -44,7 +42,6 @@ public class JsonHelper {
         List<Card> cards = gson.fromJson(json1, new TypeToken<List<Card>>() {
         }.getType());  // List<Cards>.class
 
-        cards.forEach(c-> System.out.println(c));
         return cards;
     }
 
