@@ -1,17 +1,17 @@
 package ru.zheleznikov.mesto.cases;
 
+import org.junit.jupiter.api.Disabled;
 import org.testng.annotations.Test;
 import ru.zheleznikov.mesto.model.Card;
 
 import java.io.IOException;
 import java.util.List;
 
-import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static ru.zheleznikov.mesto.utils.CommonHelper.getRandomLink;
 import static ru.zheleznikov.mesto.utils.CommonHelper.getRandomName;
-import static ru.zheleznikov.mesto.utils.JsonHelper.*;
+import static ru.zheleznikov.mesto.utils.JsonHelper.generateCardList;
+import static ru.zheleznikov.mesto.utils.JsonHelper.generateStringToReq;
 import static ru.zheleznikov.mesto.utils.UnsplashHelper.getRandomPhotoFromUnsplash;
 
 public class Test_1_addCard extends TestBase {
@@ -30,11 +30,13 @@ public class Test_1_addCard extends TestBase {
         String cardToAdd_id = app.api().addCard(body);
         cardsBefore.add(cardToAdd.with_id(cardToAdd_id));
         List<Card> cardsAfter = generateCardList(app.api().getCards());
+
         assertThat(cardsBefore.size(), equalTo(cardsAfter.size()));
         assertThat(cardsBefore, equalTo(cardsAfter));
     }
 
     @Test
+    @Disabled
     public void testAddCard_Db() throws IOException {
         List<Card> cardsBefore = app.db().getCards();
         String body = generateStringToReq(cardToAdd);
@@ -47,13 +49,25 @@ public class Test_1_addCard extends TestBase {
     }
 
     @Test
-    public void testim() throws IOException {
-        String link =
-                given()
-                        .baseUri("https://api.unsplash.com/")
-                        .when()
-                        .get("photos/random/?client_id=N-rVWTHtk2N5e7FypCRkX5Vd7zO0jZX4gWjLGHQVX30")
-                        .then().extract().path("urls.regular");
+    public void test_ui() throws IOException, InterruptedException {
+
+        List<Card> cardsBefore = generateCardList(app.api().getCards());
+
+        app.ui().signin();
+        app.ui().addCard();
+
+        Card addedCard = app.ui().getLastCard();
+        cardsBefore.add(addedCard);
+
+        System.out.println(cardsBefore.size());
+
+        List<Card> cardsAfter = generateCardList(app.api().getCards());
+        System.out.println(cardsAfter.size());
+
+//        assertThat(cardsBefore.size(), equalTo(cardsAfter.size()));
+//        assertThat(cardsBefore, equalTo(cardsAfter));
+
+
     }
 
 

@@ -1,5 +1,6 @@
 package ru.zheleznikov.mesto.cases;
 
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import ru.zheleznikov.mesto.app.ApplicationManager;
 
@@ -11,5 +12,10 @@ public class TestBase {
     @BeforeSuite
     public void setUp() throws IOException {
         app.init();
+    }
+
+    @AfterSuite
+    public void tearDown() {
+        app.ui().close();
     }
 }
