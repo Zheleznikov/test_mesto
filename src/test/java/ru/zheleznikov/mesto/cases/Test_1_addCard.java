@@ -1,6 +1,7 @@
 package ru.zheleznikov.mesto.cases;
 
 import org.junit.jupiter.api.Disabled;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import ru.zheleznikov.mesto.model.Card;
 
@@ -35,8 +36,9 @@ public class Test_1_addCard extends TestBase {
         assertThat(cardsBefore, equalTo(cardsAfter));
     }
 
+
     @Test
-    @Disabled
+    @Ignore
     public void testAddCard_Db() throws IOException {
         List<Card> cardsBefore = app.db().getCards();
         String body = generateStringToReq(cardToAdd);
@@ -49,7 +51,7 @@ public class Test_1_addCard extends TestBase {
     }
 
     @Test
-    public void test_ui() throws IOException, InterruptedException {
+    public void testAddCard_Ui_SignUser() throws IOException, InterruptedException {
 
         List<Card> cardsBefore = generateCardList(app.api().getCards());
 
@@ -59,15 +61,19 @@ public class Test_1_addCard extends TestBase {
         Card addedCard = app.ui().getLastCard();
         cardsBefore.add(addedCard);
 
-        System.out.println(cardsBefore.size());
-
         List<Card> cardsAfter = generateCardList(app.api().getCards());
-        System.out.println(cardsAfter.size());
 
-//        assertThat(cardsBefore.size(), equalTo(cardsAfter.size()));
-//        assertThat(cardsBefore, equalTo(cardsAfter));
+        assertThat(cardsBefore.size(), equalTo(cardsAfter.size()));
+        assertThat(cardsBefore, equalTo(cardsAfter));
+    }
 
-
+    @Test
+    public void testAddCard_Ui_UnsignUser() throws IOException, InterruptedException {
+        List<Card> cardsBefore = generateCardList(app.api().getCards());
+        app.ui().addCard();
+        List<Card> cardsAfter = generateCardList(app.api().getCards());
+        assertThat(cardsBefore.size(), equalTo(cardsAfter.size()));
+        assertThat(cardsBefore, equalTo(cardsAfter));
     }
 
 
