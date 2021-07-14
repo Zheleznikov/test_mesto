@@ -47,8 +47,5 @@ public class LegacyHelper {
         return getFileContentAsString("src/main/resources/signin.json");
     }
 
-    public static String postCardJson() throws IOException {
-        return getFileContentAsString("src/main/resources/postCard.json");
 
-    }
 }
