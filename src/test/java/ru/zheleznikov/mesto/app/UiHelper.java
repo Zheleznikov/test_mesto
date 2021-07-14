@@ -29,7 +29,7 @@ public class UiHelper extends UiPageElements {
         refreshPage();
     }
 
-    public void signin() throws InterruptedException {
+    public void signin() {
         signinButton.click();
         signinUserEmailInput.sendKeys(EMAIL);
         signinUserPasswordInput.sendKeys(PASSWORD);
@@ -70,6 +70,12 @@ public class UiHelper extends UiPageElements {
                 .withName(name)
                 .with_id(id)
                 .withLink(sub);
+    }
+
+    public void deleteExactCard(String id) {
+        WebElement card = wd.findElement(By.id(id));
+        card.findElement(By.xpath(".//button[contains(@class, 'place-card__delete-icon')]")).click();
+        acceptAlert();
     }
 
 

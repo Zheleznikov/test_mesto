@@ -30,8 +30,6 @@ public class Card {
         return this;
     }
 
-
-
     public int getLikes() {
         return likes.size();
     }

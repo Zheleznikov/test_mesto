@@ -51,8 +51,7 @@ public class Test_1_addCard extends TestBase {
     }
 
     @Test
-    public void testAddCard_Ui_SignUser() throws IOException, InterruptedException {
-
+    public void testAddCard_Ui_signUser() throws IOException, InterruptedException {
         List<Card> cardsBefore = generateCardList(app.api().getCards());
 
         app.ui().signin();
@@ -68,7 +67,7 @@ public class Test_1_addCard extends TestBase {
     }
 
     @Test
-    public void testAddCard_Ui_UnsignUser() throws IOException, InterruptedException {
+    public void testAddCard_Ui_unsignUser() throws IOException, InterruptedException {
         List<Card> cardsBefore = generateCardList(app.api().getCards());
         app.ui().addCard();
         List<Card> cardsAfter = generateCardList(app.api().getCards());

@@ -51,7 +51,14 @@ public class ApiHelperBase extends HelperBase {
                 .header("authorization", getToken())
                 .when()
                 .delete("cards/" + id);
+    }
 
+    protected Response reqGetMyData() {
+        return given()
+                .spec(reqSpec())
+                .header("authorization", getToken())
+                .when()
+                .get("me");
 
     }
 

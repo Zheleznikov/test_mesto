@@ -46,5 +46,9 @@ public class UiHelperBase extends HelperBase {
 //        waitUntilSpinnerStopped();
     }
 
+    protected void acceptAlert() {
+        wd.switchTo().alert().accept();
+    }
+
 
 }

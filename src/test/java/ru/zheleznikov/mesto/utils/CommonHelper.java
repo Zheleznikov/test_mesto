@@ -5,6 +5,7 @@ import ru.zheleznikov.mesto.model.Card;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CommonHelper {
 
@@ -13,6 +14,15 @@ public class CommonHelper {
 
 
     public static Card getRandomCard(List<Card> cards) {
+        return cards.get(getRandom(cards.size()));
+    }
+
+    public static List<Card> getExactContactCard(List<Card> cards, String id) {
+        return cards.stream().filter(c -> c.getOwner().get_id().equals(id)).collect(Collectors.toList());
+
+    }
+
+    public static Card getExactCard(List<Card> cards) {
         return cards.get(getRandom(cards.size()));
     }
 

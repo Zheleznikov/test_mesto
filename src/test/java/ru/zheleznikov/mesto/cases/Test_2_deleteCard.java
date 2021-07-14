@@ -1,5 +1,6 @@
 package ru.zheleznikov.mesto.cases;
 
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import ru.zheleznikov.mesto.model.Card;
 
@@ -8,6 +9,7 @@ import java.util.List;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static ru.zheleznikov.mesto.utils.CommonHelper.getExactContactCard;
 import static ru.zheleznikov.mesto.utils.CommonHelper.getRandomCard;
 import static ru.zheleznikov.mesto.utils.JsonHelper.generateCardList;
 
@@ -28,6 +30,7 @@ public class Test_2_deleteCard extends TestBase {
     }
 
     @Test
+    @Ignore
     public void testDeleteCard_Db() throws IOException {
         List<Card> cardsBefore = app.db().getCards();
         Card cardToDelete = getRandomCard(cardsBefore);
@@ -38,6 +41,25 @@ public class Test_2_deleteCard extends TestBase {
         assertThat(cardsBefore.size(), equalTo(cardsAfter.size()));
         assertThat(cardsBefore, equalTo(cardsAfter));
     }
+
+    @Test
+    public void testDeleteCard_Ui() throws InterruptedException {
+        List<Card> cardsBefore = generateCardList(app.api().getCards());
+        String _id = app.api().getCurrentUserId();
+        List<Card> currentContactCards = getExactContactCard(cardsBefore, _id);
+        Card cardToDelete = getRandomCard(currentContactCards);
+
+        app.ui().signin();
+        app.ui().deleteExactCard(cardToDelete.get_id());
+
+        cardsBefore.remove(cardToDelete);
+        List<Card> cardsAfter = generateCardList(app.api().getCards());
+
+        assertThat(cardsBefore.size(), equalTo(cardsAfter.size()));
+        assertThat(cardsBefore, equalTo(cardsAfter));
+
+    }
+
 
 
 }

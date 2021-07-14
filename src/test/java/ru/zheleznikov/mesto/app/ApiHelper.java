@@ -1,6 +1,7 @@
 package ru.zheleznikov.mesto.app;
 
 import io.restassured.response.Response;
+import ru.zheleznikov.mesto.model.Card;
 
 import java.io.IOException;
 import java.util.List;
@@ -31,4 +32,11 @@ public class ApiHelper extends ApiHelperBase {
     public void deleteCard(String id) {
         reqDeleteCardId(id).then().statusCode(200);
     }
+
+    public String getCurrentUserId() {
+        Response res = reqGetMyData();
+        return res.then().extract().path("data._id");
+    }
+
+
 }
