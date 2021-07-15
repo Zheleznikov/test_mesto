@@ -3,7 +3,6 @@ package ru.zheleznikov.mesto.app;
 import com.google.gson.Gson;
 import io.restassured.response.Response;
 import ru.zheleznikov.mesto.model.Card;
-import ru.zheleznikov.mesto.model.Signin;
 import ru.zheleznikov.mesto.model.User;
 
 import java.io.IOException;

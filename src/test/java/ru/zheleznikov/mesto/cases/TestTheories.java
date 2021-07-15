@@ -8,13 +8,14 @@ import ru.zheleznikov.mesto.model.User;
 import java.io.IOException;
 import java.util.List;
 
+import static ru.zheleznikov.mesto.utils.UnsplashHelper.getRandomNameFromDryCodes;
+
 public class TestTheories extends TestBase {
 
     @Test
     public void generateUser() throws IOException, InterruptedException {
-        app.ui().signIn();
-        app.ui().signOut();
-
+        String name = getRandomNameFromDryCodes();
+        System.out.println(name);
 
     }
 }

@@ -1,7 +1,5 @@
 package ru.zheleznikov.mesto.cases;
 
-import com.google.gson.Gson;
-import jdk.jfr.Description;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import ru.zheleznikov.mesto.model.Card;

@@ -1,7 +1,7 @@
 package ru.zheleznikov.mesto.legacy;
 
 import org.json.JSONObject;
-import ru.zheleznikov.mesto.model.Signin;
+import ru.zheleznikov.mesto.model.User;
 
 import java.io.File;
 import java.io.IOException;
@@ -37,9 +37,9 @@ public class LegacyHelper {
         return file;
     }
 
-    public static Signin getSigninJson() throws IOException {
+    public static User getSigninJson() throws IOException {
         JSONObject obj = getJson("src/main/resources/signin.json");
-        return new Signin().withEmail(obj.getString("email"))
+        return new User().withEmail(obj.getString("email"))
                 .withPassword(obj.getString("password"));
     }
 

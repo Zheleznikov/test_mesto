@@ -5,7 +5,6 @@ import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-import ru.zheleznikov.mesto.model.Signin;
 import ru.zheleznikov.mesto.model.User;
 
 import java.io.IOException;

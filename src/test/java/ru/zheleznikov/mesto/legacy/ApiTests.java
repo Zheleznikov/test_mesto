@@ -3,14 +3,13 @@ package ru.zheleznikov.mesto.legacy;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
-import ru.zheleznikov.mesto.model.Signin;
+import ru.zheleznikov.mesto.model.User;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 import static ru.zheleznikov.mesto.legacy.LegacyHelper.getSigninJson;
 import static ru.zheleznikov.mesto.legacy.LegacyHelper.getSigninJson2;
@@ -39,7 +38,7 @@ public class ApiTests {
 //    @Test
 //    @Description("1. /signin - positive signing check")
     public void signinTestPositive() throws IOException {
-        Signin apiSignin = getSigninJson();
+        User apiSignin = getSigninJson();
         String apiSignin2 = getSigninJson2();
 
         given()

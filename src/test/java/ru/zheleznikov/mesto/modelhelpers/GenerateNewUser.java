@@ -13,9 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.testng.reporters.Files.readFile;
+import static ru.zheleznikov.mesto.utils.UnsplashHelper.getRandomNameFromDryCodes;
+import static ru.zheleznikov.mesto.utils.UnsplashHelper.getRandomPhotoFromUnsplash;
 
 public class GenerateNewUser {
-
     public static void main(String[] args) throws IOException {
 
         writeJsonInFile(generateClassUser());
@@ -24,10 +25,10 @@ public class GenerateNewUser {
     public static List<User> generateClassUser() {
         List<User> users = new ArrayList<>();
         User user = new User()
-                .withName("White Wolf")
+                .withName(getRandomNameFromDryCodes())
                 .withEmail("ww@mail.ru")
                 .withPassword("1234qwerty")
-                .withAvatar("https://images.unsplash.com/photo-1577703451648-77e854069658?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80")
+                .withAvatar(getRandomPhotoFromUnsplash())
                 .withAbout("it's me");
 
         try {
