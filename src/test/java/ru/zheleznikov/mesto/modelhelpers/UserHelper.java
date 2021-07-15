@@ -17,6 +17,15 @@ public class UserHelper {
         return null;
     }
 
+    public User getUserFromJson(int n) {
+        try {
+            return readUserJsonFile().get(n);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
 
 }

@@ -4,6 +4,7 @@ import jdk.jfr.Description;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import ru.zheleznikov.mesto.model.Card;
+import ru.zheleznikov.mesto.model.User;
 
 import java.io.IOException;
 import java.util.List;
@@ -36,40 +37,31 @@ public class Test_2_deleteCard extends TestBase {
     }
 
     @Test
-    @Ignore
-    public void testDeleteCard_Db() throws IOException {
-        List<Card> cardsBefore = app.db().getCards();
-        Card cardToDelete = model.card().getRandomCard(cardsBefore);
-        cardsBefore.remove(cardToDelete);
-        app.api().deleteCard(cardToDelete.get_id());
-        List<Card> cardsAfter = app.db().getCards();
-
-        assertThat(cardsBefore.size(), equalTo(cardsAfter.size()));
-        assertThat(cardsBefore, equalTo(cardsAfter));
-    }
-
-    @Test
     @Description("Signed user trying to delete his card")
     public void testDeleteCard_Ui_cardBelongsToUser() {
+        User currentUser = model.user().getUserFromJson()
+                .withoutName().withoutAbout().withoutAvatar();
+        currentUser.with_id(app.api().getCurrentUserId(currentUser));
+
         List<Card> cardsBefore = model.card().generateCardList(app.api().getCards());
-        String _id = app.api().getCurrentUserId();
-        List<Card> currentContactCards = model.card().getExactContactCards(cardsBefore, _id);
+        List<Card> currentUserCards = model.card().getExactUserCards(cardsBefore, currentUser);
+
         Card cardToDelete = null;
 
-        if (currentContactCards.size() == 0)
+        if (currentUserCards.size() == 0)
         {
-            String body = generateStringToReq(cardToAdd);
-            Map<String, String> cardData = app.api().addCard(body);
+            Map<String, String> cardData = app.api().addCard(cardToAdd, currentUser);
             cardToDelete = new Card().with_id(cardData.get("_id"));
         }
         else
         {
-            cardToDelete = model.card().getRandomCard(currentContactCards);
+            cardToDelete = model.card().getRandomCard(currentUserCards);
         }
 
-        app.ui().signIn();
-        app.ui().deleteExactCard(cardToDelete.get_id());
+        app.ui().signIn(currentUser);
+        app.ui().deleteExactCard(cardToDelete);
         app.ui().acceptAlert();
+        app.ui().signOut();
 
         cardsBefore.remove(cardToDelete);
         List<Card> cardsAfter = model.card().generateCardList(app.api().getCards());
@@ -81,15 +73,32 @@ public class Test_2_deleteCard extends TestBase {
     @Test
     @Description("Signed user trying to delete other card")
     public void testDeleteCard_Ui_cardDoesNotBelongToUser() {
-        List<Card> cardsBefore = model.card().generateCardList(app.api().getCards());
-        String _id = app.api().getCurrentUserId();
-        List<Card> otherContactsCards = model.card().getOthersContactCard(cardsBefore, _id);
+        User currentUser = model.user().getUserFromJson()
+                .withoutName().withoutAbout().withoutAvatar();
+        currentUser.with_id(app.api().getCurrentUserId(currentUser));
 
-        Card cardToDelete = model.card().getRandomCard(otherContactsCards);
+        List<Card> cardsBefore = model.card().generateCardList(app.api().getCards());
+        List<Card> otherContactsCards = model.card().getOtherUsersCard(cardsBefore, currentUser);
+
+        Card cardToDelete = null;
+        if (otherContactsCards.size() == 0)
+        {
+            System.out.println("oops");
+            User helperUser = model.user().getUserFromJson(1);
+            // create new user through API
+            // add card by this user
+            //
+        }
+        else
+        {
+            cardToDelete = model.card().getRandomCard(otherContactsCards);
+        }
+
 
         app.ui().signIn();
-        app.ui().mouseOverCard(cardToDelete.get_id());
-        app.ui().deleteExactCard(cardToDelete.get_id());
+        app.ui().mouseOverCard(cardToDelete);
+        app.ui().deleteExactCard(cardToDelete);
+        app.ui().signOut();
 
         List<Card> cardsAfter = model.card().generateCardList(app.api().getCards());
 
@@ -104,10 +113,23 @@ public class Test_2_deleteCard extends TestBase {
 
         Card cardToDelete = model.card().getRandomCard(cardsBefore);
 
-        app.ui().mouseOverCard(cardToDelete.get_id());
-        app.ui().deleteExactCard(cardToDelete.get_id());
+        app.ui().mouseOverCard(cardToDelete);
+        app.ui().deleteExactCard(cardToDelete);
 
         List<Card> cardsAfter = model.card().generateCardList(app.api().getCards());
+
+        assertThat(cardsBefore.size(), equalTo(cardsAfter.size()));
+        assertThat(cardsBefore, equalTo(cardsAfter));
+    }
+
+    @Test
+    @Ignore
+    public void testDeleteCard_Db() throws IOException {
+        List<Card> cardsBefore = app.db().getCards();
+        Card cardToDelete = model.card().getRandomCard(cardsBefore);
+        cardsBefore.remove(cardToDelete);
+        app.api().deleteCard(cardToDelete.get_id());
+        List<Card> cardsAfter = app.db().getCards();
 
         assertThat(cardsBefore.size(), equalTo(cardsAfter.size()));
         assertThat(cardsBefore, equalTo(cardsAfter));

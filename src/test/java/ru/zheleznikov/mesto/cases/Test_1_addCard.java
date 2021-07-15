@@ -22,11 +22,10 @@ public class Test_1_addCard extends TestBase {
     @Test
     public void testAddCard_Api() {
         User currentUser = model.user().getUserFromJson().withoutName().withoutAbout().withoutAvatar();
-        List<Card> cardsListBefore = model.card().generateCardList(app.api().getCards());
-
         Card cardToAdd = new Card().withName(getRandomName()).withLink(getRandomPhotoFromUnsplash());
-        Map<String, String> cardResData = app.api()
-                .addCard(generateStringToReq(cardToAdd), new Gson().toJson(currentUser));
+
+        List<Card> cardsListBefore = model.card().generateCardList(app.api().getCards());
+        Map<String, String> cardResData = app.api().addCard(cardToAdd, currentUser);
 
         cardsListBefore.add(cardToAdd.with_id(cardResData.get("_id")));
         List<Card> cardsAfter = model.card().generateCardList(app.api().getCards());
@@ -46,10 +45,9 @@ public class Test_1_addCard extends TestBase {
         app.ui().addCard(cardToAdd);
         app.ui().signOut();
 
-        Card addedCard = model.card().getLastCard(model.card().generateCardList(app.api().getCards()));
-        cardListBefore.add(addedCard);
-
         List<Card> cardsAfter = model.card().generateCardList(app.api().getCards());
+        Card addedCard = model.card().getLastCard(cardsAfter);
+        cardListBefore.add(addedCard);
 
         assertThat(cardListBefore.size(), equalTo(cardsAfter.size()));
         assertThat(cardListBefore, equalTo(cardsAfter));
@@ -57,8 +55,9 @@ public class Test_1_addCard extends TestBase {
 
     @Test
     public void testAddCard_Ui_unsignedUser() {
-        List<Card> cardsBefore = model.card().generateCardList(app.api().getCards());
         Card cardToAdd = new Card().withName(getRandomName()).withLink(getRandomPhotoFromUnsplash());
+
+        List<Card> cardsBefore = model.card().generateCardList(app.api().getCards());
 
         app.ui().addCard(cardToAdd);
         List<Card> cardsAfter = model.card().generateCardList(app.api().getCards());

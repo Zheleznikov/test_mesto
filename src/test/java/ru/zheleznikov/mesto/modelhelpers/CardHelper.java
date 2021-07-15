@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import ru.zheleznikov.mesto.model.Card;
+import ru.zheleznikov.mesto.model.User;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,16 +24,16 @@ public class CardHelper {
         return cards.get(getRandom(cards.size()));
     }
 
-    public List<Card> getExactContactCards(List<Card> cards, String id) {
-        return cards.stream().filter(c -> c.getOwner().get_id().equals(id)).collect(Collectors.toList());
+    public List<Card> getExactUserCards(List<Card> cards, User user) {
+        return cards.stream().filter(c -> c.getOwner().get_id().equals(user.get_id())).collect(Collectors.toList());
     }
 
     public Card getExactCard(List<Card> cards, String id) {
         return cards.stream().filter(c -> c.get_id().equals(id)).findFirst().get();
     }
 
-    public List<Card> getOthersContactCard(List<Card> cards, String id) {
-        return cards.stream().filter(c -> !c.getOwner().get_id().equals(id)).collect(Collectors.toList());
+    public List<Card> getOtherUsersCard(List<Card> cards, User user) {
+        return cards.stream().filter(c -> !c.getOwner().get_id().equals(user.get_id())).collect(Collectors.toList());
     }
 
     public static Card getExactCard(List<Card> cards) {

@@ -111,15 +111,15 @@ public class UiHelper extends UiHelperBase {
                 .withLink(sub);
     }
 
-    public void deleteExactCard(String id) {
-        WebElement card = wd.findElement(By.id(id));
+    public void deleteExactCard(Card cardToDel) {
+        WebElement card = wd.findElement(By.id(cardToDel.get_id()));
         card.findElement(By.xpath(".//button[contains(@class, 'place-card__delete-icon')]")).click();
 //        acceptAlert();
     }
 
-    public void mouseOverCard(String id) {
+    public void mouseOverCard(Card cardToMouserOver) {
         Actions actions = new Actions(wd);
-        WebElement card = wd.findElement(By.id(id));
+        WebElement card = wd.findElement(By.id(cardToMouserOver.get_id()));
         actions.moveToElement(card).build().perform();
     }
 
