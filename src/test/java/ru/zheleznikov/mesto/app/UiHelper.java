@@ -13,7 +13,16 @@ import java.util.List;
 import static ru.zheleznikov.mesto.utils.CommonHelper.getRandomName;
 import static ru.zheleznikov.mesto.utils.UnsplashHelper.getRandomPhotoFromUnsplash;
 
-public class UiHelper extends UiPageElements {
+public class UiHelper extends UiHelperBase {
+    public final WebElement addCardButton = wd.findElement(By.cssSelector(".user-info__button"));
+    public final WebElement cardNameInput = wd.findElement(By.xpath("//div[contains(@class, 'popup-add-card')]//input[@name='name']"));
+    public final WebElement cardLinkInput = wd.findElement(By.xpath("//div[contains(@class, 'popup-add-card')]//input[@name='link']"));
+    public final WebElement submitAddCardButton = wd.findElement(By.cssSelector(".popup-add-card__button"));
+    public final WebElement signinButton = wd.findElement(By.cssSelector(".header__button_entry"));
+    public final WebElement signinUserEmailInput = wd.findElement(By.xpath("//form[@name='entry']//input[@type='email']"));
+    public final WebElement signinUserPasswordInput = wd.findElement(By.xpath("//form[@name='entry']//input[@type='password']"));
+    public final WebElement submitUserSigninButton = wd.findElement(By.cssSelector(".popup-entry__button"));
+    public final List<WebElement> cardsWebElements = wd.findElements(By.xpath("//div[@name='card']"));
 
     public UiHelper(String browser) throws IOException {
         super(browser);
@@ -38,7 +47,7 @@ public class UiHelper extends UiPageElements {
     }
 
     public List<Card> getCards() {
-        List<WebElement> cardsWebElements = wd.findElements(By.xpath("//div[@name='card']"));
+//        List<WebElement> cardsWebElements = wd.findElements(By.xpath("//div[@name='card']"));
         List<Card> listOfCards = new ArrayList<>();
 
         cardsWebElements.forEach(card -> {
@@ -60,8 +69,6 @@ public class UiHelper extends UiPageElements {
     public Card getLastCard() {
         WebElement lastCard = new WebDriverWait(wd, 3)
                 .until(driver -> driver.findElement(By.xpath("//div[@name='card']")));
-//        WebElement lastCard =
-//                wd.findElement(By.xpath("//div[@name='card']"));
         String id = lastCard.getAttribute("id");
         String link = lastCard.findElement(By.xpath("./div[contains(@class, 'place-card__image')]")).getCssValue("background-image");
         String sub = link.substring(5, link.length() - 2);
