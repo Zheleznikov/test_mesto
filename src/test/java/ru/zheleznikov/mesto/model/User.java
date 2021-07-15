@@ -26,6 +26,17 @@ public class User {
     private String _id;
     @Expose
     private String email;
+    @Expose
+    private String password;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public User withPassword(String password) {
+        this.password = password;
+        return this;
+    }
 
     public String getEmail() {
         return email;
@@ -33,7 +44,7 @@ public class User {
 
     public User withEmail(String email) {
         this.email = email;
-        return  this;
+        return this;
     }
 
     public String getName() {
@@ -42,6 +53,21 @@ public class User {
 
     public User withName(String name) {
         this.name = name;
+        return this;
+    }
+
+    public User withoutName() {
+        this.name = null;
+        return this;
+    }
+
+    public User withoutAvatar() {
+        this.avatar = null;
+        return this;
+    }
+
+    public User withoutAbout() {
+        this.about = null;
         return this;
     }
 

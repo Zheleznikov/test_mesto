@@ -2,6 +2,7 @@ package ru.zheleznikov.mesto.app;
 
 import io.restassured.response.Response;
 import ru.zheleznikov.mesto.model.Signin;
+import ru.zheleznikov.mesto.model.User;
 
 import java.io.IOException;
 import java.util.List;
@@ -29,8 +30,8 @@ public class ApiHelper extends ApiHelperBase {
         return res.then().extract().path("data");
     }
 
-    public Map<String, String> addCard(String body, Signin signin) {
-        Response res = reqPostCard(body, signin);
+    public Map<String, String> addCard(String cardData, String userData) {
+        Response res = reqPostCard(cardData, userData);
         return res.then().extract().path("data");
     }
 
@@ -42,6 +43,11 @@ public class ApiHelper extends ApiHelperBase {
         Response res;
         res = reqGetMyData();
         return res.then().extract().path("data._id");
+    }
+
+    public void signup(String body) {
+        Response res = reqPostSignup(body);
+        res.then().log().all();
     }
 
 

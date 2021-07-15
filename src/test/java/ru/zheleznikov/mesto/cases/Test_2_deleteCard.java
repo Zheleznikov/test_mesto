@@ -11,8 +11,6 @@ import java.util.Map;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static ru.zheleznikov.mesto.utils.CommonHelper.*;
-import static ru.zheleznikov.mesto.utils.JsonHelper.generateCardList;
 import static ru.zheleznikov.mesto.utils.JsonHelper.generateStringToReq;
 import static ru.zheleznikov.mesto.utils.UnsplashHelper.getRandomPhotoFromUnsplash;
 
@@ -25,13 +23,13 @@ public class Test_2_deleteCard extends TestBase {
     // case won't work if random card doesn't belong to current user
     @Test
     public void testDeleteCard_Api() {
-        List<Card> cardsBefore = generateCardList(app.api().getCards());
+        List<Card> cardsBefore = app.card().generateCardList(app.api().getCards());
 
         Card cardToDelete = app.card().getRandomCard(cardsBefore);
         cardsBefore.remove(cardToDelete);
         app.api().deleteCard(cardToDelete.get_id());
 
-        List<Card> cardsAfter = generateCardList(app.api().getCards());
+        List<Card> cardsAfter = app.card().generateCardList(app.api().getCards());
 
         assertThat(cardsBefore.size(), equalTo(cardsAfter.size()));
         assertThat(cardsBefore, equalTo(cardsAfter));
@@ -53,7 +51,7 @@ public class Test_2_deleteCard extends TestBase {
     @Test
     @Description("Signed user trying to delete his card")
     public void testDeleteCard_Ui_cardBelongsToUser() {
-        List<Card> cardsBefore = generateCardList(app.api().getCards());
+        List<Card> cardsBefore = app.card().generateCardList(app.api().getCards());
         String _id = app.api().getCurrentUserId();
         List<Card> currentContactCards = app.card().getExactContactCards(cardsBefore, _id);
         Card cardToDelete = null;
@@ -74,7 +72,7 @@ public class Test_2_deleteCard extends TestBase {
         app.ui().acceptAlert();
 
         cardsBefore.remove(cardToDelete);
-        List<Card> cardsAfter = generateCardList(app.api().getCards());
+        List<Card> cardsAfter = app.card().generateCardList(app.api().getCards());
 
         assertThat(cardsBefore.size(), equalTo(cardsAfter.size()));
         assertThat(cardsBefore, equalTo(cardsAfter));
@@ -83,7 +81,7 @@ public class Test_2_deleteCard extends TestBase {
     @Test
     @Description("Signed user trying to delete other card")
     public void testDeleteCard_Ui_cardDoesNotBelongToUser() {
-        List<Card> cardsBefore = generateCardList(app.api().getCards());
+        List<Card> cardsBefore = app.card().generateCardList(app.api().getCards());
         String _id = app.api().getCurrentUserId();
         List<Card> otherContactsCards = app.card().getOthersContactCard(cardsBefore, _id);
 
@@ -93,7 +91,7 @@ public class Test_2_deleteCard extends TestBase {
         app.ui().mouseOverCard(cardToDelete.get_id());
         app.ui().deleteExactCard(cardToDelete.get_id());
 
-        List<Card> cardsAfter = generateCardList(app.api().getCards());
+        List<Card> cardsAfter = app.card().generateCardList(app.api().getCards());
 
         assertThat(cardsBefore.size(), equalTo(cardsAfter.size()));
         assertThat(cardsBefore, equalTo(cardsAfter));
@@ -102,14 +100,14 @@ public class Test_2_deleteCard extends TestBase {
     @Test
     @Description("Unsigned user trying to delete any card")
     public void testDeleteCard_Ui_unsignedUser() {
-        List<Card> cardsBefore = generateCardList(app.api().getCards());
+        List<Card> cardsBefore = app.card().generateCardList(app.api().getCards());
 
         Card cardToDelete = app.card().getRandomCard(cardsBefore);
 
         app.ui().mouseOverCard(cardToDelete.get_id());
         app.ui().deleteExactCard(cardToDelete.get_id());
 
-        List<Card> cardsAfter = generateCardList(app.api().getCards());
+        List<Card> cardsAfter = app.card().generateCardList(app.api().getCards());
 
         assertThat(cardsBefore.size(), equalTo(cardsAfter.size()));
         assertThat(cardsBefore, equalTo(cardsAfter));

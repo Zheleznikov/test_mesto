@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import ru.zheleznikov.mesto.model.Card;
+import ru.zheleznikov.mesto.model.User;
 
 import java.io.*;
 import java.util.List;
@@ -20,11 +21,16 @@ public class JsonHelper {
         return new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create().toJson(card);
     }
 
+    public static String generateStringToReq(User user) {
+        return new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create().toJson(user);
+    }
+
     public static Card generateCard(Object card) {
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(card);
         return gson.fromJson(json, Card.class);// Card.class
     }
+
 
     public static void writeJsonInFile(List<Object> cardsFromApi) throws IOException {
         Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();

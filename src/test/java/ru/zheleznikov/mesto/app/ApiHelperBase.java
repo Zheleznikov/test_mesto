@@ -1,10 +1,12 @@
 package ru.zheleznikov.mesto.app;
 
+import com.google.gson.Gson;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import ru.zheleznikov.mesto.model.Signin;
+import ru.zheleznikov.mesto.model.User;
 
 import java.io.IOException;
 
@@ -31,21 +33,34 @@ public class ApiHelperBase extends HelperBase {
     protected Response reqPostSignin() {
         return given()
                 .spec(reqSpec())
-                .body(SIGNIN)
+                .body(
+                        new Gson().toJson(
+                                SIGNIN
+                        )
+                )
                 .when()
                 .post("signin");
     }
 
-    protected Response reqPostSignin(Signin signin) {
+    protected Response reqPostSignin(String user) {
+
         return given()
                 .spec(reqSpec())
-                .body(signin)
+                .body(user)
                 .when()
                 .post("signin");
     }
 
-    private String getToken(Signin signin) {
-        Response res = reqPostSignin(signin);
+    public Response reqPostSignin2(User user) {
+        return given()
+                .spec(reqSpec())
+                .body(user)
+                .when()
+                .post("signin");
+    }
+
+    private String getToken(String user) {
+        Response res = reqPostSignin(user);
         return "Bearer " + res
                 .then()
                 .extract()
@@ -61,11 +76,11 @@ public class ApiHelperBase extends HelperBase {
                 .post("cards");
     }
 
-    protected Response reqPostCard(String body, Signin signin) {
+    protected Response reqPostCard(String cardData, String userData) {
         return given()
                 .spec(reqSpec())
-                .header("authorization", getToken(signin))
-                .body(body)
+                .header("authorization", getToken(userData))
+                .body(cardData)
                 .when()
                 .post("cards");
     }
@@ -87,10 +102,10 @@ public class ApiHelperBase extends HelperBase {
 
     }
 
-    protected Response reqPostSignup() {
+    protected Response reqPostSignup(String body) {
         return given()
                 .spec(reqSpec())
-                .body("")
+                .body(body)
                 .when()
                 .post("signup");
     }

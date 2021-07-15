@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.zheleznikov.mesto.model.Card;
+import ru.zheleznikov.mesto.model.User;
 
 import java.io.IOException;
 import java.time.Duration;
@@ -43,6 +44,14 @@ public class UiHelper extends UiHelperBase {
         signinButton.click();
         signinUserEmailInput.sendKeys(EMAIL);
         signinUserPasswordInput.sendKeys(PASSWORD);
+        submitUserSigninButton.click();
+        waitUntilSpinnerStopped();
+    }
+
+    public void signin(User user) {
+        signinButton.click();
+        signinUserEmailInput.sendKeys(user.getEmail());
+        signinUserPasswordInput.sendKeys(user.getPassword());
         submitUserSigninButton.click();
         waitUntilSpinnerStopped();
     }
