@@ -41,7 +41,7 @@ public class UiHelperBase extends HelperBase {
         new WebDriverWait(wd, 5).until(ExpectedConditions.invisibilityOf(wd.findElement(By.cssSelector(".spinner_visible"))));
     }
 
-    protected void refreshPage() throws InterruptedException {
+    protected void refreshPage()  {
         wd.navigate().refresh();
 //        Thread.sleep(500);
 //        waitUntilSpinnerStopped();

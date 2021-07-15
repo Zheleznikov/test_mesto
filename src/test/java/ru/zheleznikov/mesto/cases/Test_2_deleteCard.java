@@ -23,13 +23,13 @@ public class Test_2_deleteCard extends TestBase {
     // case won't work if random card doesn't belong to current user
     @Test
     public void testDeleteCard_Api() {
-        List<Card> cardsBefore = app.card().generateCardList(app.api().getCards());
+        List<Card> cardsBefore = model.card().generateCardList(app.api().getCards());
 
-        Card cardToDelete = app.card().getRandomCard(cardsBefore);
+        Card cardToDelete = model.card().getRandomCard(cardsBefore);
         cardsBefore.remove(cardToDelete);
         app.api().deleteCard(cardToDelete.get_id());
 
-        List<Card> cardsAfter = app.card().generateCardList(app.api().getCards());
+        List<Card> cardsAfter = model.card().generateCardList(app.api().getCards());
 
         assertThat(cardsBefore.size(), equalTo(cardsAfter.size()));
         assertThat(cardsBefore, equalTo(cardsAfter));
@@ -39,7 +39,7 @@ public class Test_2_deleteCard extends TestBase {
     @Ignore
     public void testDeleteCard_Db() throws IOException {
         List<Card> cardsBefore = app.db().getCards();
-        Card cardToDelete = app.card().getRandomCard(cardsBefore);
+        Card cardToDelete = model.card().getRandomCard(cardsBefore);
         cardsBefore.remove(cardToDelete);
         app.api().deleteCard(cardToDelete.get_id());
         List<Card> cardsAfter = app.db().getCards();
@@ -51,9 +51,9 @@ public class Test_2_deleteCard extends TestBase {
     @Test
     @Description("Signed user trying to delete his card")
     public void testDeleteCard_Ui_cardBelongsToUser() {
-        List<Card> cardsBefore = app.card().generateCardList(app.api().getCards());
+        List<Card> cardsBefore = model.card().generateCardList(app.api().getCards());
         String _id = app.api().getCurrentUserId();
-        List<Card> currentContactCards = app.card().getExactContactCards(cardsBefore, _id);
+        List<Card> currentContactCards = model.card().getExactContactCards(cardsBefore, _id);
         Card cardToDelete = null;
 
         if (currentContactCards.size() == 0)
@@ -64,15 +64,15 @@ public class Test_2_deleteCard extends TestBase {
         }
         else
         {
-            cardToDelete = app.card().getRandomCard(currentContactCards);
+            cardToDelete = model.card().getRandomCard(currentContactCards);
         }
 
-        app.ui().signin();
+        app.ui().signIn();
         app.ui().deleteExactCard(cardToDelete.get_id());
         app.ui().acceptAlert();
 
         cardsBefore.remove(cardToDelete);
-        List<Card> cardsAfter = app.card().generateCardList(app.api().getCards());
+        List<Card> cardsAfter = model.card().generateCardList(app.api().getCards());
 
         assertThat(cardsBefore.size(), equalTo(cardsAfter.size()));
         assertThat(cardsBefore, equalTo(cardsAfter));
@@ -81,17 +81,17 @@ public class Test_2_deleteCard extends TestBase {
     @Test
     @Description("Signed user trying to delete other card")
     public void testDeleteCard_Ui_cardDoesNotBelongToUser() {
-        List<Card> cardsBefore = app.card().generateCardList(app.api().getCards());
+        List<Card> cardsBefore = model.card().generateCardList(app.api().getCards());
         String _id = app.api().getCurrentUserId();
-        List<Card> otherContactsCards = app.card().getOthersContactCard(cardsBefore, _id);
+        List<Card> otherContactsCards = model.card().getOthersContactCard(cardsBefore, _id);
 
-        Card cardToDelete = app.card().getRandomCard(otherContactsCards);
+        Card cardToDelete = model.card().getRandomCard(otherContactsCards);
 
-        app.ui().signin();
+        app.ui().signIn();
         app.ui().mouseOverCard(cardToDelete.get_id());
         app.ui().deleteExactCard(cardToDelete.get_id());
 
-        List<Card> cardsAfter = app.card().generateCardList(app.api().getCards());
+        List<Card> cardsAfter = model.card().generateCardList(app.api().getCards());
 
         assertThat(cardsBefore.size(), equalTo(cardsAfter.size()));
         assertThat(cardsBefore, equalTo(cardsAfter));
@@ -100,14 +100,14 @@ public class Test_2_deleteCard extends TestBase {
     @Test
     @Description("Unsigned user trying to delete any card")
     public void testDeleteCard_Ui_unsignedUser() {
-        List<Card> cardsBefore = app.card().generateCardList(app.api().getCards());
+        List<Card> cardsBefore = model.card().generateCardList(app.api().getCards());
 
-        Card cardToDelete = app.card().getRandomCard(cardsBefore);
+        Card cardToDelete = model.card().getRandomCard(cardsBefore);
 
         app.ui().mouseOverCard(cardToDelete.get_id());
         app.ui().deleteExactCard(cardToDelete.get_id());
 
-        List<Card> cardsAfter = app.card().generateCardList(app.api().getCards());
+        List<Card> cardsAfter = model.card().generateCardList(app.api().getCards());
 
         assertThat(cardsBefore.size(), equalTo(cardsAfter.size()));
         assertThat(cardsBefore, equalTo(cardsAfter));

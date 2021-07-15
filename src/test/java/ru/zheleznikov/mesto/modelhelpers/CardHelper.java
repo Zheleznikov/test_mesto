@@ -15,26 +15,32 @@ public class CardHelper {
     public List<Card> generateCardList(List<Object> cardsFromApi) {
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(cardsFromApi);
-        return gson.fromJson(json, new TypeToken<List<Card>>() {}.getType());// List<Card>.class
+        return gson.fromJson(json, new TypeToken<List<Card>>() {
+        }.getType());// List<Card>.class
     }
-    public  Card getRandomCard(List<Card> cards) {
+
+    public Card getRandomCard(List<Card> cards) {
         return cards.get(getRandom(cards.size()));
     }
 
-    public  List<Card> getExactContactCards(List<Card> cards, String id) {
+    public List<Card> getExactContactCards(List<Card> cards, String id) {
         return cards.stream().filter(c -> c.getOwner().get_id().equals(id)).collect(Collectors.toList());
     }
 
-    public  Card getExactCard(List<Card> cards, String id) {
+    public Card getExactCard(List<Card> cards, String id) {
         return cards.stream().filter(c -> c.get_id().equals(id)).findFirst().get();
     }
 
-    public  List<Card> getOthersContactCard(List<Card> cards, String id) {
+    public List<Card> getOthersContactCard(List<Card> cards, String id) {
         return cards.stream().filter(c -> !c.getOwner().get_id().equals(id)).collect(Collectors.toList());
     }
 
     public static Card getExactCard(List<Card> cards) {
         return cards.get(getRandom(cards.size()));
+    }
+
+    public Card getLastCard(List<Card> cards) {
+        return cards.get(cards.size() - 1);
     }
 
 }

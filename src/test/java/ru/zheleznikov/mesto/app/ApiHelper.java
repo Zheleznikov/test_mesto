@@ -45,6 +45,7 @@ public class ApiHelper extends ApiHelperBase {
         return res.then().extract().path("data._id");
     }
 
+
     public void signup(String body) {
         Response res = reqPostSignup(body);
         res.then().log().all();

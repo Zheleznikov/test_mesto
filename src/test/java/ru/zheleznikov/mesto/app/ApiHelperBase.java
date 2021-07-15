@@ -17,7 +17,7 @@ public class ApiHelperBase extends HelperBase {
     private final String HOST = properties.getProperty("host.api");
     private final String EMAIL = properties.getProperty("email");
     private final String PASSWORD = properties.getProperty("password");
-    private final Signin SIGNIN = new Signin().withEmail(EMAIL).withPassword(PASSWORD);
+    private final User USER = new User().withEmail(EMAIL).withPassword(PASSWORD);
 
 
     public ApiHelperBase() throws IOException {
@@ -33,11 +33,7 @@ public class ApiHelperBase extends HelperBase {
     protected Response reqPostSignin() {
         return given()
                 .spec(reqSpec())
-                .body(
-                        new Gson().toJson(
-                                SIGNIN
-                        )
-                )
+                .body(new Gson().toJson(USER))
                 .when()
                 .post("signin");
     }

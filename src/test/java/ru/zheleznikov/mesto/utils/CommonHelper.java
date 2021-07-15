@@ -38,8 +38,13 @@ public class CommonHelper {
         return links.get(getRandom(links.size()));
     }
 
-    public static String getRandomName() throws IOException {
-        List<String> names = generateArrayFromTxtFile(PATH_TO_NAMES_TXT);
+    public static String getRandomName() {
+        List<String> names = null;
+        try {
+            names = generateArrayFromTxtFile(PATH_TO_NAMES_TXT);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return names.get(getRandom(names.size()));
     }
 

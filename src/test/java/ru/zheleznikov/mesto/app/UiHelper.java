@@ -25,6 +25,9 @@ public class UiHelper extends UiHelperBase {
     public final WebElement signinUserPasswordInput = wd.findElement(By.xpath("//form[@name='entry']//input[@type='password']"));
     public final WebElement submitUserSigninButton = wd.findElement(By.cssSelector(".popup-entry__button"));
     public final List<WebElement> cardsWebElements = wd.findElements(By.xpath("//div[@name='card']"));
+    public final WebElement signOutButton = wd.findElement(By.cssSelector(".header__button"));
+    public final WebElement signOutButton1 = new WebDriverWait(wd, 3)
+            .until(driver -> driver.findElement(By.cssSelector(".header__button_exit")));
 
     public UiHelper(String browser) throws IOException {
         super(browser);
@@ -40,7 +43,17 @@ public class UiHelper extends UiHelperBase {
         refreshPage();
     }
 
-    public void signin() {
+    public void addCard(Card card)  {
+//        waitUntilSpinnerStopped();
+        addCardButton.click();
+        cardNameInput.sendKeys(card.getName());
+        cardLinkInput.sendKeys(card.getLink());
+        submitAddCardButton.click();
+        waitUntilSpinnerStopped();
+        refreshPage();
+    }
+
+    public void signIn() {
         signinButton.click();
         signinUserEmailInput.sendKeys(EMAIL);
         signinUserPasswordInput.sendKeys(PASSWORD);
@@ -48,12 +61,21 @@ public class UiHelper extends UiHelperBase {
         waitUntilSpinnerStopped();
     }
 
-    public void signin(User user) {
+    public void signIn(User user) {
         signinButton.click();
         signinUserEmailInput.sendKeys(user.getEmail());
         signinUserPasswordInput.sendKeys(user.getPassword());
         submitUserSigninButton.click();
         waitUntilSpinnerStopped();
+    }
+
+    public void signOut() {
+        try {
+            wd.findElement(By.cssSelector(".header__button_exit")).click();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     public List<Card> getCards() {
@@ -100,6 +122,7 @@ public class UiHelper extends UiHelperBase {
         WebElement card = wd.findElement(By.id(id));
         actions.moveToElement(card).build().perform();
     }
+
 
 
 }
