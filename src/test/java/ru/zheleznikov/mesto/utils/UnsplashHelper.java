@@ -28,6 +28,14 @@ public class UnsplashHelper {
                 .then()
                          .extract().jsonPath().getList("");
         return json.get(0);
+    }
 
+    public static List<String> getRandomNameFromDryCodes(int n) {
+        return given()
+                .baseUri("http://names.drycodes.com/" + n + "?nameOptions=funnyWords")
+                .when()
+                .get()
+                .then()
+                .extract().jsonPath().getList("");
     }
 }

@@ -13,6 +13,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static ru.zheleznikov.mesto.utils.CommonHelper.getRandomName;
 import static ru.zheleznikov.mesto.utils.JsonHelper.generateStringToReq;
+import static ru.zheleznikov.mesto.utils.UnsplashHelper.getRandomNameFromDryCodes;
 import static ru.zheleznikov.mesto.utils.UnsplashHelper.getRandomPhotoFromUnsplash;
 
 public class Test_1_addCard extends TestBase {
@@ -20,7 +21,7 @@ public class Test_1_addCard extends TestBase {
     @Test
     public void testAddCard_Api() {
         User currentUser = model.user().getUserFromJson().withoutName().withoutAbout().withoutAvatar();
-        Card cardToAdd = new Card().withName(getRandomName()).withLink(getRandomPhotoFromUnsplash());
+        Card cardToAdd = new Card().withName(getRandomNameFromDryCodes()).withLink(getRandomPhotoFromUnsplash());
 
         List<Card> cardsListBefore = model.card().generateCardList(app.api().getCards());
         Map<String, String> cardResData = app.api().addCard(cardToAdd, currentUser);
@@ -35,7 +36,7 @@ public class Test_1_addCard extends TestBase {
     @Test
     public void testAddCard_Ui_signedUser() {
         User currentUser = model.user().getUserFromJson();
-        Card cardToAdd = new Card().withName(getRandomName()).withLink(getRandomPhotoFromUnsplash());
+        Card cardToAdd = new Card().withName(getRandomNameFromDryCodes()).withLink(getRandomPhotoFromUnsplash());
 
         List<Card> cardListBefore = model.card().generateCardList(app.api().getCards());
 
@@ -53,7 +54,7 @@ public class Test_1_addCard extends TestBase {
 
     @Test
     public void testAddCard_Ui_unsignedUser() {
-        Card cardToAdd = new Card().withName(getRandomName()).withLink(getRandomPhotoFromUnsplash());
+        Card cardToAdd = new Card().withName(getRandomNameFromDryCodes()).withLink(getRandomPhotoFromUnsplash());
 
         List<Card> cardsBefore = model.card().generateCardList(app.api().getCards());
 

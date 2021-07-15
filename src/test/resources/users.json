@@ -12,5 +12,19 @@
     "avatar": "https://images.unsplash.com/photo-1625019030788-0b0ea78b8063?crop\u003dentropy\u0026cs\u003dtinysrgb\u0026fit\u003dmax\u0026fm\u003djpg\u0026ixid\u003dMnwyNDY0ODl8MHwxfHJhbmRvbXx8fHx8fHx8fDE2MjYzNjYyOTc\u0026ixlib\u003drb-1.2.1\u0026q\u003d80\u0026w\u003d1080",
     "email": "ww@mail.ru",
     "password": "1234qwerty"
+  },
+  {
+    "name": "Soap_Websites",
+    "about": "it\u0027s me",
+    "avatar": "https://images.unsplash.com/photo-1624572676596-920841b11289?crop\u003dentropy\u0026cs\u003dtinysrgb\u0026fit\u003dmax\u0026fm\u003djpg\u0026ixid\u003dMnwyNDY0ODl8MHwxfHJhbmRvbXx8fHx8fHx8fDE2MjYzNjg3NjM\u0026ixlib\u003drb-1.2.1\u0026q\u003d80\u0026w\u003d1080",
+    "email": "ww@mail.ru",
+    "password": "1234qwerty"
+  },
+  {
+    "name": "Solar_Post_office",
+    "about": "Floppy_Disk_Monster",
+    "avatar": "https://images.unsplash.com/photo-1624364891380-4d0079177a77?crop\u003dentropy\u0026cs\u003dtinysrgb\u0026fit\u003dmax\u0026fm\u003djpg\u0026ixid\u003dMnwyNDY0ODl8MHwxfHJhbmRvbXx8fHx8fHx8fDE2MjYzNjkyNTc\u0026ixlib\u003drb-1.2.1\u0026q\u003d80\u0026w\u003d1080",
+    "email": "Post_office_Ring@autotest.zhe",
+    "password": "1234qwerty"
   }
 ]

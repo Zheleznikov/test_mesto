@@ -24,12 +24,13 @@ public class GenerateNewUser {
 
     public static List<User> generateClassUser() {
         List<User> users = new ArrayList<>();
+        List<String> fields = getRandomNameFromDryCodes(3);
         User user = new User()
-                .withName(getRandomNameFromDryCodes())
-                .withEmail("ww@mail.ru")
+                .withName(fields.get(0))
+                .withEmail(fields.get(1) + "@autotest.zhe")
                 .withPassword("1234qwerty")
                 .withAvatar(getRandomPhotoFromUnsplash())
-                .withAbout("it's me");
+                .withAbout(fields.get(2));
 
         try {
             users.addAll(readUserJsonFile());
