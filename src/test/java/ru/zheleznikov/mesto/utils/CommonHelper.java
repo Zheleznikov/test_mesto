@@ -17,9 +17,16 @@ public class CommonHelper {
         return cards.get(getRandom(cards.size()));
     }
 
-    public static List<Card> getExactContactCard(List<Card> cards, String id) {
+    public static List<Card> getExactContactCards(List<Card> cards, String id) {
         return cards.stream().filter(c -> c.getOwner().get_id().equals(id)).collect(Collectors.toList());
+    }
 
+    public static Card getExactCard(List<Card> cards, String id) {
+        return cards.stream().filter(c -> c.get_id().equals(id)).findFirst().get();
+    }
+
+    public static List<Card> getOthersContactCard(List<Card> cards, String id) {
+        return cards.stream().filter(c -> !c.getOwner().get_id().equals(id)).collect(Collectors.toList());
     }
 
     public static Card getExactCard(List<Card> cards) {

@@ -1,12 +1,12 @@
 package ru.zheleznikov.mesto.cases;
 
-import org.junit.jupiter.api.Disabled;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import ru.zheleznikov.mesto.model.Card;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -28,8 +28,8 @@ public class Test_1_addCard extends TestBase {
     public void testAddCard_Api() {
         List<Card> cardsBefore = generateCardList(app.api().getCards());
         String body = generateStringToReq(cardToAdd);
-        String cardToAdd_id = app.api().addCard(body);
-        cardsBefore.add(cardToAdd.with_id(cardToAdd_id));
+        Map<String, String> cardData = app.api().addCard(body);
+        cardsBefore.add(cardToAdd.with_id(cardData.get("_id")));
         List<Card> cardsAfter = generateCardList(app.api().getCards());
 
         assertThat(cardsBefore.size(), equalTo(cardsAfter.size()));
@@ -42,8 +42,8 @@ public class Test_1_addCard extends TestBase {
     public void testAddCard_Db() throws IOException {
         List<Card> cardsBefore = app.db().getCards();
         String body = generateStringToReq(cardToAdd);
-        String cardToAdd_id = app.api().addCard(body);
-        cardsBefore.add(cardToAdd.with_id(cardToAdd_id));
+        Map<String, String> cardData = app.api().addCard(body);
+        cardsBefore.add(cardToAdd.with_id(cardData.get("_id")));
         List<Card> cardsAfter = app.db().getCards();
 
         assertThat(cardsBefore.size(), equalTo(cardsAfter.size()));

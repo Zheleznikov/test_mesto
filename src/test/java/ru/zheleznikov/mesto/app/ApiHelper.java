@@ -1,16 +1,15 @@
 package ru.zheleznikov.mesto.app;
 
 import io.restassured.response.Response;
-import ru.zheleznikov.mesto.model.Card;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 public class ApiHelper extends ApiHelperBase {
 
 
     public ApiHelper() throws IOException {
-
     }
 
     private List<Object> processResponse(Response res) {
@@ -23,9 +22,11 @@ public class ApiHelper extends ApiHelperBase {
         return processResponse(reqGetCards());
     }
 
-    public String addCard(String body) {
+
+
+    public Map<String,String> addCard(String body) {
         Response res = reqPostCard(body);
-        return res.then().statusCode(200).extract().path("data._id");
+        return res.then().extract().path("data");
     }
 
 
@@ -36,6 +37,12 @@ public class ApiHelper extends ApiHelperBase {
     public String getCurrentUserId() {
         Response res = reqGetMyData();
         return res.then().extract().path("data._id");
+    }
+
+    public String getExactCard(String id) {
+        Response res = reqGetCards();
+        List<String> ids = res.then().extract().path("data._id");
+        return ids.stream().filter(_id -> _id.equals(id)).findFirst().get();
     }
 
 

@@ -2,6 +2,7 @@ package ru.zheleznikov.mesto.app;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.zheleznikov.mesto.model.Card;
 
@@ -82,7 +83,13 @@ public class UiHelper extends UiHelperBase {
     public void deleteExactCard(String id) {
         WebElement card = wd.findElement(By.id(id));
         card.findElement(By.xpath(".//button[contains(@class, 'place-card__delete-icon')]")).click();
-        acceptAlert();
+//        acceptAlert();
+    }
+
+    public void mouseOverCard(String id) {
+        Actions actions = new Actions(wd);
+        WebElement card = wd.findElement(By.id(id));
+        actions.moveToElement(card).build().perform();
     }
 
 

@@ -14,7 +14,7 @@ public class TestBase {
         app.init();
     }
 
-    @AfterSuite
+//    @AfterSuite
     public void tearDown() {
         app.ui().close();
     }
