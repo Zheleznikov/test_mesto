@@ -1,18 +1,24 @@
 1. Add card
-   a. add card in API
-       1. Add card in API
-       2. Check API
-       3. Check Mongo
+   a. test API
+       1. Add new card through API
+       2. Get card list through API
+       Expected result: card was added to DB
 
-   b. add card in UI as signed user
-       1.Add card
-   c. add card in UI as unsigned user
+   b. test API
+       1. Add new card through API
+       2. Get card list through Mongo
+       Expected result: card was added to DB
+
+   c. test UI - add card as signed user
+   Expected result: card was added to DB
+
+   d. test UI - add cars ad unsigned user
+   Expected result: card wasn't added to DB
 
 2. Delete card
-    1. Delete card in UI
-    2. Check UI
-    3. Check API
-    4. Check Mongo
+    a. test API
+        1. Delete card
+
 
 3. Add like
 

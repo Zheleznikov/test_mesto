@@ -36,10 +36,35 @@ public class ApiHelperBase extends HelperBase {
                 .post("signin");
     }
 
+    protected Response reqPostSignin(Signin signin) {
+        return given()
+                .spec(reqSpec())
+                .body(signin)
+                .when()
+                .post("signin");
+    }
+
+    private String getToken(Signin signin) {
+        Response res = reqPostSignin(signin);
+        return "Bearer " + res
+                .then()
+                .extract()
+                .path("token");
+    }
+
     protected Response reqPostCard(String body) {
         return given()
                 .spec(reqSpec())
                 .header("authorization", getToken())
+                .body(body)
+                .when()
+                .post("cards");
+    }
+
+    protected Response reqPostCard(String body, Signin signin) {
+        return given()
+                .spec(reqSpec())
+                .header("authorization", getToken(signin))
                 .body(body)
                 .when()
                 .post("cards");
@@ -60,6 +85,14 @@ public class ApiHelperBase extends HelperBase {
                 .when()
                 .get("me");
 
+    }
+
+    protected Response reqPostSignup() {
+        return given()
+                .spec(reqSpec())
+                .body("")
+                .when()
+                .post("signup");
     }
 
     private String getToken() {
