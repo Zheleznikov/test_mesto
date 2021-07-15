@@ -1,5 +1,8 @@
 package ru.zheleznikov.mesto.modelhelpers;
 
+import com.beust.jcommander.JCommander;
+import com.beust.jcommander.Parameter;
+import com.beust.jcommander.ParameterException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -17,31 +20,59 @@ import static ru.zheleznikov.mesto.utils.UnsplashHelper.getRandomNameFromDryCode
 import static ru.zheleznikov.mesto.utils.UnsplashHelper.getRandomPhotoFromUnsplash;
 
 public class GenerateNewUser {
+
+    @Parameter(names = {"-c", "--count"}, description = "count to generate")
+    public  int n = 3; // default value if no arg -d in command line
+
     public static void main(String[] args) throws IOException {
 
-        writeJsonInFile(generateClassUser());
+        GenerateNewUser generator = new GenerateNewUser();
+        JCommander jCommander = new JCommander(generator);
+        try {
+            jCommander.parse(args);
+        } catch (ParameterException e) {
+            jCommander.usage();
+            return;
+        }
+
+        generator.run();
     }
 
-    public static List<User> generateClassUser() {
-        List<User> users = new ArrayList<>();
-        List<String> fields = getRandomNameFromDryCodes(3);
-        User user = new User()
-                .withName(fields.get(0))
-                .withEmail(fields.get(1) + "@autotest.zhe")
-                .withPassword("1234qwerty")
-                .withAvatar(getRandomPhotoFromUnsplash())
-                .withAbout(fields.get(2));
+    public  void run() throws IOException {
+        writeJsonInFile(generateClassUser());
 
+    }
+
+    public  List<User> generateClassUser() {
+        List<User> allUsers = new ArrayList<>();
         try {
-            users.addAll(readUserJsonFile());
-            users.add(user);
+            allUsers.addAll(readUserJsonFile());
+            allUsers.addAll(generateListOfUsers(n));
         } catch (IOException e) {
-            users.add(user);
+            e.printStackTrace();
+            allUsers.addAll(generateListOfUsers(n));
+        }
+
+        return allUsers;
+    }
+
+    public  List<User> generateListOfUsers(int n) {
+        List<User> users = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            List<String> fields = getRandomNameFromDryCodes(2);
+            users.add(
+                    new User()
+                            .withName(fields.get(0))
+                            .withEmail(fields.get(0) + "@autotest.zhe")
+                            .withPassword("1234qwerty")
+                            .withAvatar(getRandomPhotoFromUnsplash())
+                            .withAbout(fields.get(1))
+            );
         }
         return users;
     }
 
-    public static void writeJsonInFile(List<User> users) throws IOException {
+    public  void writeJsonInFile(List<User> users) throws IOException {
         Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(users);
         try (Writer writer = new FileWriter("src/test/resources/users.json");) {
