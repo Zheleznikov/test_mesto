@@ -13,11 +13,12 @@ import java.util.concurrent.TimeUnit;
 
 public class UiHelperBase extends HelperBase {
 
-
     public WebDriver wd;
     private final String browser;
     protected final String EMAIL = properties.getProperty("email");
     protected final String PASSWORD = properties.getProperty("password");
+
+
 
 
     public UiHelperBase(String browser) throws IOException {
@@ -46,7 +47,7 @@ public class UiHelperBase extends HelperBase {
 //        waitUntilSpinnerStopped();
     }
 
-    protected void acceptAlert() {
+    public void acceptAlert() {
         wd.switchTo().alert().accept();
     }
 
