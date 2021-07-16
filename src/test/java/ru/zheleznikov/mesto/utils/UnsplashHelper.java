@@ -12,11 +12,19 @@ public class UnsplashHelper {
     private static final String UNSPLASH_API_HOST = "https://api.unsplash.com/";
 
     public static String getRandomPhotoFromUnsplash() {
-        return given()
-                .baseUri(UNSPLASH_API_HOST)
-                .when()
-                .get("photos/random/?client_id=" + KEY)
-                .then().extract().path("urls.regular");
+        try  {
+            return given()
+                    .baseUri(UNSPLASH_API_HOST)
+                    .when()
+                    .get("photos/random/?client_id=" + KEY)
+                    .then().extract().path("urls.regular");
+        }
+
+        catch(Exception e)  {
+            return "https://images.unsplash.com/photo-1572880393162-0518ac760495?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80";
+        }
+
+
 
     }
 

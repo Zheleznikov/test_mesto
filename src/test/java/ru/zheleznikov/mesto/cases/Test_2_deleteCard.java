@@ -61,30 +61,34 @@ public class Test_2_deleteCard extends TestBase {
 
         List<Card> cardsBefore = app.api().getCards().model.card().generateCardList().getCardList();
         List<Card> otherContactsCards = model.card().getOtherUsersCard(cardsBefore, currentUser);
-
+//
         Card cardToDelete = null;
-        if (otherContactsCards.size() == 0) {
-            System.out.println("oops");
-            User helperUser = model.user().getUserFromJson(1);
-            // create new user through API
-            // add card by this user
-            //
-        } else {
-            cardToDelete = model.card().getRandomCard(otherContactsCards);
-        }
+////        if (otherContactsCards.size() == 0)
+//        {
+        User helperUser = model.user().getUserFromJson(3);
+        app.api().signup(helperUser);
+        Map<String, String> addedCardData = app.api().addCard(cardToAdd, helperUser.preparedForSignIn());
+        ;
+        System.out.println(addedCardData);
+        cardToDelete = new Card().with_id(addedCardData.get("_id"));
 
-
+//        }
+//        else {
+//            cardToDelete = model.card().getRandomCard(otherContactsCards);
+//        }
+//
+//
         app.ui().signIn();
         app.ui().mouseOverCard(cardToDelete);
         app.ui().deleteExactCard(cardToDelete);
         app.ui().signOut();
 
+        cardsBefore.remove(cardToDelete);
         List<Card> cardsAfter = app.api().getCards().model.card().generateCardList().getCardList();
 
         assertThat(cardsBefore.size(), equalTo(cardsAfter.size()));
         assertThat(cardsBefore, equalTo(cardsAfter));
     }
-
 
 
     @Test

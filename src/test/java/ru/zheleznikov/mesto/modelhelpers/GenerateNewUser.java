@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import static org.testng.reporters.Files.readFile;
 import static ru.zheleznikov.mesto.utils.UnsplashHelper.getRandomNameFromDryCodes;
@@ -22,7 +23,7 @@ import static ru.zheleznikov.mesto.utils.UnsplashHelper.getRandomPhotoFromUnspla
 public class GenerateNewUser {
 
     @Parameter(names = {"-c", "--count"}, description = "count to generate")
-    public  int n = 3; // default value if no arg -d in command line
+    public  int n = 20; // default value if no arg -d in command line
 
     public static void main(String[] args) throws IOException {
 
@@ -62,11 +63,11 @@ public class GenerateNewUser {
             List<String> fields = getRandomNameFromDryCodes(2);
             users.add(
                     new User()
-                            .withName(fields.get(0))
-                            .withEmail(fields.get(0) + "@autotest.zhe")
+                            .withName(fields.get(0).replace("_", " "))
+                            .withEmail(fields.get(0).toLowerCase(Locale.ROOT) + "@zhe.ru")
                             .withPassword("1234qwerty")
                             .withAvatar(getRandomPhotoFromUnsplash())
-                            .withAbout(fields.get(1))
+                            .withAbout(fields.get(1).replace("_", " "))
             );
         }
         return users;

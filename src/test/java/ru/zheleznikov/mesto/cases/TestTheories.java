@@ -13,15 +13,8 @@ import static ru.zheleznikov.mesto.utils.UnsplashHelper.getRandomNameFromDryCode
 public class TestTheories extends TestBase {
 
     @Test
-    public void generateUser() throws IOException, InterruptedException {
+    public void signUp() throws IOException, InterruptedException {
         User currentUser = model.user().getUserFromJson();
         app.api().signup(currentUser);
-
-//        List<Card> cards = app.api().getCards2().model.card().generateCardList();
-//        cards.forEach(System.out::println);
-//
-//        List<Object> cards2 = app.api().getCards2().model.card().cards;
-//        cards2.forEach(System.out::println);
-
     }
 }
