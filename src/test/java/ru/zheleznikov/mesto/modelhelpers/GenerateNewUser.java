@@ -23,7 +23,7 @@ import static ru.zheleznikov.mesto.utils.UnsplashHelper.getRandomPhotoFromUnspla
 public class GenerateNewUser {
 
     @Parameter(names = {"-c", "--count"}, description = "count to generate")
-    public  int n = 20; // default value if no arg -d in command line
+    public  int n = 2; // default value if no arg -d in command line
 
     public static void main(String[] args) throws IOException {
 
@@ -64,7 +64,7 @@ public class GenerateNewUser {
             users.add(
                     new User()
                             .withName(fields.get(0).replace("_", " "))
-                            .withEmail(fields.get(0).toLowerCase(Locale.ROOT) + "@zhe.ru")
+                            .withEmail(fields.get(0).replace("_", " ").toLowerCase(Locale.ROOT) + "@zhe.ru")
                             .withPassword("1234qwerty")
                             .withAvatar(getRandomPhotoFromUnsplash())
                             .withAbout(fields.get(1).replace("_", " "))
