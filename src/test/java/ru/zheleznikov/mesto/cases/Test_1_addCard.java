@@ -32,9 +32,9 @@ public class Test_1_addCard extends TestBase {
         app.ui().addCard(cardToAdd);
         app.ui().signOut();
 
-        CardHelper cardHelper = app.api().getCards().model.card().generateCardList();
-        List<Card> cardsListAfter = cardHelper.getCardList();
-        Card addedCard = cardHelper.getLastCard2();
+        CardHelper cards = app.api().getCards().model.card().generateCardList();
+        List<Card> cardsListAfter = cards.getCardList();
+        Card addedCard = cards.getLastCard();
 
         cardListBefore.add(addedCard);
 

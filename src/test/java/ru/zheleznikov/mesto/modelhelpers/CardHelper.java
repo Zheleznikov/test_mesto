@@ -73,7 +73,7 @@ public class CardHelper {
         return cards.get(cards.size() - 1);
     }
 
-    public Card getLastCard2() {
+    public Card getLastCard() {
         return cards.get(cards.size() - 1);
     }
 
