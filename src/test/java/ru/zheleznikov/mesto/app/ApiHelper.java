@@ -4,8 +4,10 @@ import com.google.gson.Gson;
 import io.restassured.response.Response;
 import ru.zheleznikov.mesto.model.Card;
 import ru.zheleznikov.mesto.model.User;
+import ru.zheleznikov.mesto.modelhelpers.ModelManager;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -13,9 +15,16 @@ import static ru.zheleznikov.mesto.utils.JsonHelper.generateStringToReq;
 
 public class ApiHelper extends ApiHelperBase {
 
+    public ModelManager model;
+    public List<Object> cards = new ArrayList<>();
 
     public ApiHelper() throws IOException {
+
     }
+
+//    public ModelManager model() {
+//        return this.modelManager;
+//    }
 
     private List<Object> processResponse(Response res) {
         return res.then()
@@ -23,8 +32,15 @@ public class ApiHelper extends ApiHelperBase {
                 .extract().jsonPath().getList("data");
     }
 
+
     public List<Object> getCards() {
         return processResponse(reqGetCards());
+    }
+
+    public ApiHelper getCards2() {
+        this.cards = processResponse(reqGetCards());
+        model = new ModelManager(this);
+        return this;
     }
 
 

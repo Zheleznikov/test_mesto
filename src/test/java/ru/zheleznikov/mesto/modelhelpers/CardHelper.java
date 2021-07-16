@@ -3,17 +3,39 @@ package ru.zheleznikov.mesto.modelhelpers;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import ru.zheleznikov.mesto.app.ApiHelper;
 import ru.zheleznikov.mesto.model.Card;
 import ru.zheleznikov.mesto.model.User;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static ru.zheleznikov.mesto.utils.CommonHelper.getRandom;
 
+
+
 public class CardHelper {
 
+    public ApiHelper apiHelper;
+
+    public CardHelper() {
+
+    }
+
+    public CardHelper(ApiHelper apiHelper) {
+        this.apiHelper = apiHelper;
+    }
+
     public List<Card> generateCardList(List<Object> cardsFromApi) {
+        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        String json = gson.toJson(cardsFromApi);
+        return gson.fromJson(json, new TypeToken<List<Card>>() {
+        }.getType());// List<Card>.class
+    }
+
+    public List<Card> generateCardList() {
+        List<Object> cardsFromApi = this.apiHelper.cards;
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(cardsFromApi);
         return gson.fromJson(json, new TypeToken<List<Card>>() {

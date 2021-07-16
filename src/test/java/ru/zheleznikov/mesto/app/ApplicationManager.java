@@ -1,6 +1,7 @@
 package ru.zheleznikov.mesto.app;
 
 import org.openqa.selenium.remote.BrowserType;
+import ru.zheleznikov.mesto.modelhelpers.ModelManager;
 
 import java.io.IOException;
 
