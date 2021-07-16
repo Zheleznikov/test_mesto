@@ -1,29 +1,20 @@
 package ru.zheleznikov.mesto.modelhelpers;
 
-import org.testng.mustache.Model;
 import ru.zheleznikov.mesto.app.ApiHelper;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class ModelManager {
-    public ApiHelper apiHelper;
-    private CardHelper cardHelper;
+    private final CardHelper cardHelper;
     private UserHelper userHelper;
 
     public ModelManager() {
-
+        cardHelper = new CardHelper();
+        userHelper = new UserHelper();
     }
 
     public ModelManager(ApiHelper apiHelper) {
-        this.apiHelper = apiHelper;
-        this.cardHelper = new CardHelper(this.apiHelper);
+        cardHelper = new CardHelper(apiHelper);
     }
 
-    public void init() {
-        cardHelper = new CardHelper(apiHelper);
-        userHelper = new UserHelper();
-    }
 
     public CardHelper card() {
         return cardHelper;

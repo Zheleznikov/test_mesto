@@ -7,7 +7,6 @@ import ru.zheleznikov.mesto.app.ApiHelper;
 import ru.zheleznikov.mesto.model.Card;
 import ru.zheleznikov.mesto.model.User;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,8 +22,8 @@ public class CardHelper {
 
     }
 
-    public CardHelper(ApiHelper apiHelper) {
-        this.apiHelper = apiHelper;
+    public CardHelper(ApiHelper apiHelper2) {
+        apiHelper = apiHelper2;
     }
 
     public List<Card> generateCardList(List<Object> cardsFromApi) {
@@ -35,7 +34,7 @@ public class CardHelper {
     }
 
     public List<Card> generateCardList() {
-        List<Object> cardsFromApi = this.apiHelper.cards;
+        List<Object> cardsFromApi = apiHelper.cards;
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(cardsFromApi);
         return gson.fromJson(json, new TypeToken<List<Card>>() {

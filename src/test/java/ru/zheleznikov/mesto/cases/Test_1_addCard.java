@@ -23,11 +23,10 @@ public class Test_1_addCard extends TestBase {
         User currentUser = model.user().getUserFromJson().withoutName().withoutAbout().withoutAvatar();
         Card cardToAdd = new Card().withName(getRandomNameFromDryCodes()).withLink(getRandomPhotoFromUnsplash());
 
-        List<Card> cardsListBefore = model.card().generateCardList(app.api().getCards());
-        Map<String, String> cardResData = app.api().addCard(cardToAdd, currentUser);
-
-        cardsListBefore.add(cardToAdd.with_id(cardResData.get("_id")));
-        List<Card> cardsAfter = model.card().generateCardList(app.api().getCards());
+        List<Card> cardsListBefore = app.api().getCards2().model.card().generateCardList();
+        Map<String, String> addedCardData = app.api().addCard(cardToAdd, currentUser);
+        cardsListBefore.add(cardToAdd.with_id(addedCardData.get("_id")));
+        List<Card> cardsAfter = app.api().getCards2().model.card().generateCardList();
 
         assertThat(cardsListBefore.size(), equalTo(cardsAfter.size()));
         assertThat(cardsListBefore, equalTo(cardsAfter));

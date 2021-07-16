@@ -14,6 +14,7 @@ public class TestBase {
     @BeforeSuite
     public void setUp() throws IOException {
         app.init();
+
 //        model.init();
     }
 

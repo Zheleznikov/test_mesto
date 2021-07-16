@@ -1,23 +1,10 @@
 [
-  {
-    "name": "Kitty_Ring",
-    "about": "Hnads_Android",
-    "avatar": "https://images.unsplash.com/photo-1624468124606-ae224c16c8ae?crop\u003dentropy\u0026cs\u003dtinysrgb\u0026fit\u003dmax\u0026fm\u003djpg\u0026ixid\u003dMnwyNDY0ODl8MHwxfHJhbmRvbXx8fHx8fHx8fDE2MjYzNzI3NDk\u0026ixlib\u003drb-1.2.1\u0026q\u003d80\u0026w\u003d1080",
-    "email": "Kitty_Ring@autotest.zhe",
-    "password": "1234qwerty"
-  },
-  {
-    "name": "Hnads_Sink",
-    "about": "Shelf_Solar",
-    "avatar": "https://images.unsplash.com/photo-1623824643683-6ef38a06f4a1?crop\u003dentropy\u0026cs\u003dtinysrgb\u0026fit\u003dmax\u0026fm\u003djpg\u0026ixid\u003dMnwyNDY0ODl8MHwxfHJhbmRvbXx8fHx8fHx8fDE2MjYzNzI3NTA\u0026ixlib\u003drb-1.2.1\u0026q\u003d80\u0026w\u003d1080",
-    "email": "Hnads_Sink@autotest.zhe",
-    "password": "1234qwerty"
-  },
+
   {
     "name": "Solar_Cone",
     "about": "Soda_Shoes",
     "avatar": "https://images.unsplash.com/photo-1625806785652-f4427c3fda40?crop\u003dentropy\u0026cs\u003dtinysrgb\u0026fit\u003dmax\u0026fm\u003djpg\u0026ixid\u003dMnwyNDY0ODl8MHwxfHJhbmRvbXx8fHx8fHx8fDE2MjYzNzI3NTE\u0026ixlib\u003drb-1.2.1\u0026q\u003d80\u0026w\u003d1080",
-    "email": "Solar_Cone@autotest.zhe",
+    "email": "Solar_Cone@zhe.ru",
     "password": "1234qwerty"
   },
   {

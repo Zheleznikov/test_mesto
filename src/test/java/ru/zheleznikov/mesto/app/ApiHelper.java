@@ -22,9 +22,6 @@ public class ApiHelper extends ApiHelperBase {
 
     }
 
-//    public ModelManager model() {
-//        return this.modelManager;
-//    }
 
     private List<Object> processResponse(Response res) {
         return res.then()
@@ -38,7 +35,7 @@ public class ApiHelper extends ApiHelperBase {
     }
 
     public ApiHelper getCards2() {
-        this.cards = processResponse(reqGetCards());
+        cards = processResponse(reqGetCards());
         model = new ModelManager(this);
         return this;
     }
@@ -51,7 +48,7 @@ public class ApiHelper extends ApiHelperBase {
 
     public Map<String, String> addCard(Card card, User user) {
         Response res = reqPostCard(generateStringToReq(card), new Gson().toJson(user));
-        return res.then().extract().path("data");
+        return res.then().log().body().extract().path("data");
     }
 
     public void deleteCard(String id) {
@@ -65,7 +62,9 @@ public class ApiHelper extends ApiHelperBase {
     }
 
 
-    public void signup(String body) {
+    public void signup(User user) {
+        String body = new Gson().toJson(user);
+        System.out.println(body);
         Response res = reqPostSignup(body);
         res.then().log().all();
     }
