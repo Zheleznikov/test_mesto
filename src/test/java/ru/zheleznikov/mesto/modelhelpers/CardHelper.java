@@ -7,6 +7,7 @@ import ru.zheleznikov.mesto.app.ApiHelper;
 import ru.zheleznikov.mesto.model.Card;
 import ru.zheleznikov.mesto.model.User;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,6 +18,11 @@ import static ru.zheleznikov.mesto.utils.CommonHelper.getRandom;
 public class CardHelper {
 
     public ApiHelper apiHelper;
+    public List<Card> cards = new ArrayList<>();
+
+    public List<Card> getCardList() {
+        return cards;
+    }
 
     public CardHelper() {
 
@@ -33,12 +39,14 @@ public class CardHelper {
         }.getType());// List<Card>.class
     }
 
-    public List<Card> generateCardList() {
+    public CardHelper generateCardList() {
         List<Object> cardsFromApi = apiHelper.cards;
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(cardsFromApi);
-        return gson.fromJson(json, new TypeToken<List<Card>>() {
+         cards = gson.fromJson(json, new TypeToken<List<Card>>() {
         }.getType());// List<Card>.class
+        return this;
+
     }
 
     public Card getRandomCard(List<Card> cards) {
@@ -62,6 +70,10 @@ public class CardHelper {
     }
 
     public Card getLastCard(List<Card> cards) {
+        return cards.get(cards.size() - 1);
+    }
+
+    public Card getLastCard2() {
         return cards.get(cards.size() - 1);
     }
 

@@ -21,40 +21,22 @@ public class Test_2_deleteCard extends TestBase {
             .withName("Card to del")
             .withLink(getRandomPhotoFromUnsplash());
 
-    // case won't work if random card doesn't belong to current user
-    @Test
-    public void testDeleteCard_Api() {
-        List<Card> cardsBefore = model.card().generateCardList(app.api().getCards());
-
-        Card cardToDelete = model.card().getRandomCard(cardsBefore);
-        cardsBefore.remove(cardToDelete);
-        app.api().deleteCard(cardToDelete.get_id());
-
-        List<Card> cardsAfter = model.card().generateCardList(app.api().getCards());
-
-        assertThat(cardsBefore.size(), equalTo(cardsAfter.size()));
-        assertThat(cardsBefore, equalTo(cardsAfter));
-    }
 
     @Test
     @Description("Signed user trying to delete his card")
     public void testDeleteCard_Ui_cardBelongsToUser() {
-        User currentUser = model.user().getUserFromJson()
-                .withoutName().withoutAbout().withoutAvatar();
+        User currentUser = model.user().getUserFromJson().preparedForSignIn();
         currentUser.with_id(app.api().getCurrentUserId(currentUser));
 
-        List<Card> cardsBefore = model.card().generateCardList(app.api().getCards());
+        List<Card> cardsBefore = app.api().getCards().model.card().generateCardList().getCardList();
         List<Card> currentUserCards = model.card().getExactUserCards(cardsBefore, currentUser);
 
         Card cardToDelete = null;
 
-        if (currentUserCards.size() == 0)
-        {
+        if (currentUserCards.size() == 0) {
             Map<String, String> cardData = app.api().addCard(cardToAdd, currentUser);
             cardToDelete = new Card().with_id(cardData.get("_id"));
-        }
-        else
-        {
+        } else {
             cardToDelete = model.card().getRandomCard(currentUserCards);
         }
 
@@ -64,7 +46,8 @@ public class Test_2_deleteCard extends TestBase {
         app.ui().signOut();
 
         cardsBefore.remove(cardToDelete);
-        List<Card> cardsAfter = model.card().generateCardList(app.api().getCards());
+
+        List<Card> cardsAfter = app.api().getCards().model.card().generateCardList().getCardList();
 
         assertThat(cardsBefore.size(), equalTo(cardsAfter.size()));
         assertThat(cardsBefore, equalTo(cardsAfter));
@@ -73,24 +56,20 @@ public class Test_2_deleteCard extends TestBase {
     @Test
     @Description("Signed user trying to delete other card")
     public void testDeleteCard_Ui_cardDoesNotBelongToUser() {
-        User currentUser = model.user().getUserFromJson()
-                .withoutName().withoutAbout().withoutAvatar();
+        User currentUser = model.user().getUserFromJson().preparedForSignIn();
         currentUser.with_id(app.api().getCurrentUserId(currentUser));
 
-        List<Card> cardsBefore = model.card().generateCardList(app.api().getCards());
+        List<Card> cardsBefore = app.api().getCards().model.card().generateCardList().getCardList();
         List<Card> otherContactsCards = model.card().getOtherUsersCard(cardsBefore, currentUser);
 
         Card cardToDelete = null;
-        if (otherContactsCards.size() == 0)
-        {
+        if (otherContactsCards.size() == 0) {
             System.out.println("oops");
             User helperUser = model.user().getUserFromJson(1);
             // create new user through API
             // add card by this user
             //
-        }
-        else
-        {
+        } else {
             cardToDelete = model.card().getRandomCard(otherContactsCards);
         }
 
@@ -100,26 +79,44 @@ public class Test_2_deleteCard extends TestBase {
         app.ui().deleteExactCard(cardToDelete);
         app.ui().signOut();
 
-        List<Card> cardsAfter = model.card().generateCardList(app.api().getCards());
+        List<Card> cardsAfter = app.api().getCards().model.card().generateCardList().getCardList();
 
         assertThat(cardsBefore.size(), equalTo(cardsAfter.size()));
         assertThat(cardsBefore, equalTo(cardsAfter));
     }
 
+
+
     @Test
     @Description("Unsigned user trying to delete any card")
     public void testDeleteCard_Ui_unsignedUser() {
-        List<Card> cardsBefore = model.card().generateCardList(app.api().getCards());
+        List<Card> cardsBefore = app.api().getCards().model.card().generateCardList().getCardList();
 
         Card cardToDelete = model.card().getRandomCard(cardsBefore);
 
         app.ui().mouseOverCard(cardToDelete);
         app.ui().deleteExactCard(cardToDelete);
 
-        List<Card> cardsAfter = model.card().generateCardList(app.api().getCards());
+        List<Card> cardsAfter = app.api().getCards().model.card().generateCardList().getCardList();
 
         assertThat(cardsBefore.size(), equalTo(cardsAfter.size()));
         assertThat(cardsBefore, equalTo(cardsAfter));
+    }
+
+    // case won't work if random card doesn't belong to current user
+    @Test
+    @Ignore
+    public void testDeleteCard_Api() {
+        List<Card> cardListBefore = app.api().getCards().model.card().generateCardList().getCardList();
+
+        Card cardToDelete = model.card().getRandomCard(cardListBefore);
+        cardListBefore.remove(cardToDelete);
+        app.api().deleteCard(cardToDelete.get_id());
+
+        List<Card> cardsAfter = app.api().getCards().model.card().generateCardList().getCardList();
+
+        assertThat(cardListBefore.size(), equalTo(cardsAfter.size()));
+        assertThat(cardListBefore, equalTo(cardsAfter));
     }
 
     @Test
@@ -134,8 +131,6 @@ public class Test_2_deleteCard extends TestBase {
         assertThat(cardsBefore.size(), equalTo(cardsAfter.size()));
         assertThat(cardsBefore, equalTo(cardsAfter));
     }
-
-
 
 
 }

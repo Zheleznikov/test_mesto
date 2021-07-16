@@ -71,6 +71,13 @@ public class User {
         return this;
     }
 
+    public User preparedForSignIn() {
+        this.name = null;
+        this.avatar = null;
+        this.about = null;
+        return this;
+    }
+
     public String getAbout() {
         return about;
     }

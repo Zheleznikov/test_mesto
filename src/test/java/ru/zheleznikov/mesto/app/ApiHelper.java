@@ -29,12 +29,7 @@ public class ApiHelper extends ApiHelperBase {
                 .extract().jsonPath().getList("data");
     }
 
-
-    public List<Object> getCards() {
-        return processResponse(reqGetCards());
-    }
-
-    public ApiHelper getCards2() {
+    public ApiHelper getCards() {
         cards = processResponse(reqGetCards());
         model = new ModelManager(this);
         return this;

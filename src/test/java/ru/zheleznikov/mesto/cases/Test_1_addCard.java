@@ -4,6 +4,7 @@ import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import ru.zheleznikov.mesto.model.Card;
 import ru.zheleznikov.mesto.model.User;
+import ru.zheleznikov.mesto.modelhelpers.CardHelper;
 
 import java.io.IOException;
 import java.util.List;
@@ -18,50 +19,56 @@ import static ru.zheleznikov.mesto.utils.UnsplashHelper.getRandomPhotoFromUnspla
 
 public class Test_1_addCard extends TestBase {
 
-    @Test
-    public void testAddCard_Api() {
-        User currentUser = model.user().getUserFromJson().withoutName().withoutAbout().withoutAvatar();
-        Card cardToAdd = new Card().withName(getRandomNameFromDryCodes()).withLink(getRandomPhotoFromUnsplash());
 
-        List<Card> cardsListBefore = app.api().getCards2().model.card().generateCardList();
-        Map<String, String> addedCardData = app.api().addCard(cardToAdd, currentUser);
-        cardsListBefore.add(cardToAdd.with_id(addedCardData.get("_id")));
-        List<Card> cardsAfter = app.api().getCards2().model.card().generateCardList();
-
-        assertThat(cardsListBefore.size(), equalTo(cardsAfter.size()));
-        assertThat(cardsListBefore, equalTo(cardsAfter));
-    }
 
     @Test
     public void testAddCard_Ui_signedUser() {
         User currentUser = model.user().getUserFromJson();
         Card cardToAdd = new Card().withName(getRandomNameFromDryCodes()).withLink(getRandomPhotoFromUnsplash());
 
-        List<Card> cardListBefore = model.card().generateCardList(app.api().getCards());
+        List<Card> cardListBefore = app.api().getCards().model.card().generateCardList().getCardList();
 
         app.ui().signIn(currentUser);
         app.ui().addCard(cardToAdd);
         app.ui().signOut();
 
-        List<Card> cardsAfter = model.card().generateCardList(app.api().getCards());
-        Card addedCard = model.card().getLastCard(cardsAfter);
+        CardHelper cardHelper = app.api().getCards().model.card().generateCardList();
+        List<Card> cardsListAfter = cardHelper.getCardList();
+        Card addedCard = cardHelper.getLastCard2();
+
         cardListBefore.add(addedCard);
 
-        assertThat(cardListBefore.size(), equalTo(cardsAfter.size()));
-        assertThat(cardListBefore, equalTo(cardsAfter));
+        assertThat(cardListBefore.size(), equalTo(cardsListAfter.size()));
+        assertThat(cardListBefore, equalTo(cardsListAfter));
     }
 
     @Test
     public void testAddCard_Ui_unsignedUser() {
         Card cardToAdd = new Card().withName(getRandomNameFromDryCodes()).withLink(getRandomPhotoFromUnsplash());
 
-        List<Card> cardsBefore = model.card().generateCardList(app.api().getCards());
+        List<Card> cardListBefore = app.api().getCards().model.card().generateCardList().getCardList();
 
         app.ui().addCard(cardToAdd);
-        List<Card> cardsAfter = model.card().generateCardList(app.api().getCards());
 
-        assertThat(cardsBefore.size(), equalTo(cardsAfter.size()));
-        assertThat(cardsBefore, equalTo(cardsAfter));
+        List<Card> cardsListAfter = app.api().getCards().model.card().generateCardList().getCardList();
+
+        assertThat(cardListBefore.size(), equalTo(cardsListAfter.size()));
+        assertThat(cardListBefore, equalTo(cardsListAfter));
+    }
+
+    @Test
+    public void testAddCard_Api() {
+        User currentUser = model.user().getUserFromJson().withoutName().withoutAbout().withoutAvatar();
+        Card cardToAdd = new Card().withName(getRandomNameFromDryCodes()).withLink(getRandomPhotoFromUnsplash());
+
+        List<Card> cardListBefore = app.api().getCards().model.card().generateCardList().getCardList();
+        Map<String, String> addedCardData = app.api().addCard(cardToAdd, currentUser);
+        cardListBefore.add(cardToAdd.with_id(addedCardData.get("_id")));
+
+        List<Card> cardListAfter = app.api().getCards().model.card().generateCardList().getCardList();
+
+        assertThat(cardListBefore.size(), equalTo(cardListAfter.size()));
+        assertThat(cardListBefore, equalTo(cardListAfter));
     }
 
     @Test
@@ -69,9 +76,11 @@ public class Test_1_addCard extends TestBase {
     public void testAddCard_Db() throws IOException {
         Card cardToAdd = new Card().withName(getRandomName()).withLink(getRandomPhotoFromUnsplash());
         List<Card> cardsBefore = app.db().getCards();
+
         String body = generateStringToReq(cardToAdd);
         Map<String, String> cardData = app.api().addCard(body);
         cardsBefore.add(cardToAdd.with_id(cardData.get("_id")));
+
         List<Card> cardsAfter = app.db().getCards();
 
         assertThat(cardsBefore.size(), equalTo(cardsAfter.size()));
