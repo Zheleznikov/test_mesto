@@ -1,17 +1,17 @@
-package ru.zheleznikov.mesto.modelhelpers;
+package ru.zheleznikov.mesto.main.modelhelpers;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import ru.zheleznikov.mesto.app.ApiHelper;
-import ru.zheleznikov.mesto.model.Card;
-import ru.zheleznikov.mesto.model.User;
+import ru.zheleznikov.mesto.main.app.ApiHelper;
+import ru.zheleznikov.mesto.main.model.Card;
+import ru.zheleznikov.mesto.main.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static ru.zheleznikov.mesto.utils.CommonHelper.getRandom;
+import static ru.zheleznikov.mesto.main.utils.CommonHelper.getRandom;
 
 
 

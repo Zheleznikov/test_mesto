@@ -1,6 +1,6 @@
-package ru.zheleznikov.mesto.utils;
+package ru.zheleznikov.mesto.main.utils;
 
-import ru.zheleznikov.mesto.model.Card;
+import ru.zheleznikov.mesto.main.model.Card;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -9,8 +9,8 @@ import java.util.stream.Collectors;
 
 public class CommonHelper {
 
-    private final static String PATH_TO_NAMES_TXT = "src/test/resources/names.txt";
-    private final static String PATH_TO_LINKS_TXT = "src/test/resources/links.txt";
+    private final static String PATH_TO_NAMES_TXT = "src/main/resources/names.txt";
+    private final static String PATH_TO_LINKS_TXT = "src/main/resources/links.txt";
 
 
     public static Card getRandomCard(List<Card> cards) {

@@ -1,11 +1,12 @@
-package ru.zheleznikov.mesto.app;
+package ru.zheleznikov.mesto.main.app;
 
 import com.google.gson.Gson;
+import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-import ru.zheleznikov.mesto.model.User;
+import ru.zheleznikov.mesto.main.model.User;
 
 import java.io.IOException;
 
@@ -23,14 +24,14 @@ public class ApiHelperBase extends HelperBase {
     }
 
     protected Response reqGetCards() {
-        return given()
+        return RestAssured.given()
                 .spec(reqSpec())
                 .when()
                 .get("cards");
     }
 
     protected Response reqPostSignin() {
-        return given()
+        return RestAssured.given()
                 .spec(reqSpec())
                 .body(new Gson().toJson(USER))
                 .when()
@@ -39,7 +40,7 @@ public class ApiHelperBase extends HelperBase {
 
     protected Response reqPostSignin(String user) {
 
-        return given()
+        return RestAssured.given()
                 .spec(reqSpec())
                 .body(user)
                 .when()
@@ -47,7 +48,7 @@ public class ApiHelperBase extends HelperBase {
     }
 
     public Response reqPostSignin2(User user) {
-        return given()
+        return RestAssured.given()
                 .spec(reqSpec())
                 .body(user)
                 .when()
@@ -63,7 +64,7 @@ public class ApiHelperBase extends HelperBase {
     }
 
     protected Response reqPostCard(String body) {
-        return given()
+        return RestAssured.given()
                 .spec(reqSpec())
                 .header("authorization", getToken())
                 .body(body)
@@ -72,7 +73,7 @@ public class ApiHelperBase extends HelperBase {
     }
 
     protected Response reqPostCard(String cardData, String userData) {
-        return given()
+        return RestAssured.given()
                 .spec(reqSpec())
                 .header("authorization", getToken(userData))
                 .body(cardData)
@@ -81,7 +82,7 @@ public class ApiHelperBase extends HelperBase {
     }
 
     protected Response reqDeleteCardId(String id) {
-        return given()
+        return RestAssured.given()
                 .spec(reqSpec())
                 .header("authorization", getToken())
                 .when()
@@ -89,7 +90,7 @@ public class ApiHelperBase extends HelperBase {
     }
 
     protected Response reqGetMyData() {
-        return given()
+        return RestAssured.given()
                 .spec(reqSpec())
                 .header("authorization", getToken())
                 .when()
@@ -98,7 +99,7 @@ public class ApiHelperBase extends HelperBase {
     }
 
     protected Response reqPostSignup(String body) {
-        return given()
+        return RestAssured.given()
                 .spec(reqSpec())
                 .body(body)
                 .when()

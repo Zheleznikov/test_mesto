@@ -1,7 +1,7 @@
-package ru.zheleznikov.mesto.legacy;
+package ru.zheleznikov.mesto.main.legacy;
 
 import org.json.JSONObject;
-import ru.zheleznikov.mesto.model.User;
+import ru.zheleznikov.mesto.main.model.User;
 
 import java.io.File;
 import java.io.IOException;

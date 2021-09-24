@@ -1,10 +1,10 @@
-package ru.zheleznikov.mesto.utils;
+package ru.zheleznikov.mesto.main.utils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import ru.zheleznikov.mesto.model.Card;
-import ru.zheleznikov.mesto.model.User;
+import ru.zheleznikov.mesto.main.model.Card;
+import ru.zheleznikov.mesto.main.model.User;
 
 import java.io.*;
 import java.util.List;
@@ -35,14 +35,14 @@ public class JsonHelper {
     public static void writeJsonInFile(List<Object> cardsFromApi) throws IOException {
         Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(cardsFromApi);
-        try (Writer writer = new FileWriter("src/test/resources/cards.json");) {
+        try (Writer writer = new FileWriter("src/main/resources/cards.json");) {
             writer.write(json);
         }
     }
 
     public static List<Card> readJsonFromFile() throws IOException {
         Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
-        File jsonFile = new File("src/test/resources/cards.json");
+        File jsonFile = new File("src/main/resources/cards.json");
         String json1 = readFile(jsonFile);
 
         List<Card> cards = gson.fromJson(json1, new TypeToken<List<Card>>() {
@@ -51,7 +51,7 @@ public class JsonHelper {
         return cards;
     }
 
-    private static String readFile(File file) throws IOException {
+    public static String readFile(File file) throws IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String str = "";
             String line = reader.readLine();

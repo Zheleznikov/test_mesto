@@ -1,10 +1,8 @@
-package ru.zheleznikov.mesto.app;
+package ru.zheleznikov.mesto.main.app;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -26,7 +24,7 @@ public class UiHelperBase extends HelperBase {
         init();
     }
 
-    public void init() {
+    private void init() {
         wd = new ChromeDriver();
         wd.manage().timeouts().setScriptTimeout(5, TimeUnit.SECONDS);
         wd.get(properties.getProperty("host.ui"));

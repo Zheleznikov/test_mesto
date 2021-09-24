@@ -3,8 +3,8 @@ package ru.zheleznikov.mesto.cases;
 import jdk.jfr.Description;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
-import ru.zheleznikov.mesto.model.Card;
-import ru.zheleznikov.mesto.model.User;
+import ru.zheleznikov.mesto.main.model.Card;
+import ru.zheleznikov.mesto.main.model.User;
 
 import java.io.IOException;
 import java.util.List;
@@ -12,8 +12,7 @@ import java.util.Map;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static ru.zheleznikov.mesto.utils.JsonHelper.generateStringToReq;
-import static ru.zheleznikov.mesto.utils.UnsplashHelper.getRandomPhotoFromUnsplash;
+import static ru.zheleznikov.mesto.main.utils.UnsplashHelper.getRandomPhotoFromUnsplash;
 
 public class Test_2_deleteCard extends TestBase {
 
@@ -24,7 +23,7 @@ public class Test_2_deleteCard extends TestBase {
 
     @Test
     @Description("Signed user trying to delete his card")
-    public void testDeleteCard_Ui_cardBelongsToUser() {
+    public void testDeleteCard_Ui_cardBelongsToUser() throws IOException {
         User currentUser = model.user().getUserFromJson().preparedForSignIn();
         currentUser.with_id(app.api().getCurrentUserId(currentUser));
 
@@ -55,7 +54,7 @@ public class Test_2_deleteCard extends TestBase {
 
     @Test
     @Description("Signed user trying to delete other card")
-    public void testDeleteCard_Ui_cardDoesNotBelongToUser() {
+    public void testDeleteCard_Ui_cardDoesNotBelongToUser() throws IOException {
         User currentUser = model.user().getUserFromJson().preparedForSignIn();
         currentUser.with_id(app.api().getCurrentUserId(currentUser));
 
@@ -92,7 +91,7 @@ public class Test_2_deleteCard extends TestBase {
 
     @Test
     @Description("Unsigned user trying to delete any card")
-    public void testDeleteCard_Ui_unsignedUser() {
+    public void testDeleteCard_Ui_unsignedUser() throws IOException {
         List<Card> cardsBefore = app.api().getCards().model.card().generateCardList().getCardList();
 
         Card cardToDelete = model.card().getRandomCard(cardsBefore);

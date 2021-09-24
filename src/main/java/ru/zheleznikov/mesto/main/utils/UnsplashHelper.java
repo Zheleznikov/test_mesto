@@ -1,4 +1,4 @@
-package ru.zheleznikov.mesto.utils;
+package ru.zheleznikov.mesto.main.utils;
 
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.ExtractableResponse;
@@ -23,7 +23,6 @@ public class UnsplashHelper {
         catch(Exception e)  {
             return "https://images.unsplash.com/photo-1572880393162-0518ac760495?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80";
         }
-
 
 
     }

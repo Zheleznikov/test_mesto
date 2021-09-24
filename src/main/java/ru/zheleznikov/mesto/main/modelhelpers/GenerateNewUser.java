@@ -1,4 +1,4 @@
-package ru.zheleznikov.mesto.modelhelpers;
+package ru.zheleznikov.mesto.main.modelhelpers;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
@@ -6,7 +6,7 @@ import com.beust.jcommander.ParameterException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import ru.zheleznikov.mesto.model.User;
+import ru.zheleznikov.mesto.main.model.User;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -16,9 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import static org.testng.reporters.Files.readFile;
-import static ru.zheleznikov.mesto.utils.UnsplashHelper.getRandomNameFromDryCodes;
-import static ru.zheleznikov.mesto.utils.UnsplashHelper.getRandomPhotoFromUnsplash;
+import static ru.zheleznikov.mesto.main.utils.JsonHelper.readFile;
+import static ru.zheleznikov.mesto.main.utils.UnsplashHelper.getRandomNameFromDryCodes;
+import static ru.zheleznikov.mesto.main.utils.UnsplashHelper.getRandomPhotoFromUnsplash;
 
 public class GenerateNewUser {
 
@@ -76,14 +76,14 @@ public class GenerateNewUser {
     public  void writeJsonInFile(List<User> users) throws IOException {
         Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(users);
-        try (Writer writer = new FileWriter("src/test/resources/users.json");) {
+        try (Writer writer = new FileWriter("src/main/resources/users.json");) {
             writer.write(json);
         }
     }
 
     public static List<User> readUserJsonFile() throws IOException {
         Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
-        File jsonFile = new File("src/test/resources/users.json");
+        File jsonFile = new File("src/main/resources/users.json");
         String json1 = readFile(jsonFile);
 
         return gson.fromJson(json1, new TypeToken<List<User>>() {

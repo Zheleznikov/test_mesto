@@ -1,4 +1,4 @@
-package ru.zheleznikov.mesto.app;
+package ru.zheleznikov.mesto.main.app;
 
 
 import com.mongodb.BasicDBObject;
@@ -8,8 +8,8 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 import org.bson.types.ObjectId;
-import ru.zheleznikov.mesto.model.Card;
-import ru.zheleznikov.mesto.model.User;
+import ru.zheleznikov.mesto.main.model.Card;
+import ru.zheleznikov.mesto.main.model.User;
 
 import java.io.IOException;
 import java.util.ArrayList;

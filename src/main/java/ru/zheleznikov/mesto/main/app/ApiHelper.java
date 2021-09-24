@@ -1,17 +1,17 @@
-package ru.zheleznikov.mesto.app;
+package ru.zheleznikov.mesto.main.app;
 
 import com.google.gson.Gson;
 import io.restassured.response.Response;
-import ru.zheleznikov.mesto.model.Card;
-import ru.zheleznikov.mesto.model.User;
-import ru.zheleznikov.mesto.modelhelpers.ModelManager;
+import ru.zheleznikov.mesto.main.model.Card;
+import ru.zheleznikov.mesto.main.model.User;
+import ru.zheleznikov.mesto.main.modelhelpers.ModelManager;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static ru.zheleznikov.mesto.utils.JsonHelper.generateStringToReq;
+import static ru.zheleznikov.mesto.main.utils.JsonHelper.generateStringToReq;
 
 public class ApiHelper extends ApiHelperBase {
 

@@ -1,20 +1,33 @@
 package ru.zheleznikov.mesto.cases;
 
-import com.google.gson.Gson;
+import org.openqa.selenium.remote.BrowserType;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import ru.zheleznikov.mesto.model.Card;
-import ru.zheleznikov.mesto.model.User;
+import ru.zheleznikov.mesto.main.app.UiHelper;
+import ru.zheleznikov.mesto.main.model.Card;
+import ru.zheleznikov.mesto.main.model.User;
+import ru.zheleznikov.mesto.main.modelhelpers.ModelManager;
 
 import java.io.IOException;
-import java.util.List;
 
-import static ru.zheleznikov.mesto.utils.UnsplashHelper.getRandomNameFromDryCodes;
+import static ru.zheleznikov.mesto.main.utils.UnsplashHelper.getRandomNameFromDryCodes;
+import static ru.zheleznikov.mesto.main.utils.UnsplashHelper.getRandomPhotoFromUnsplash;
 
-public class TestTheories extends TestBase {
+public class TestTheories  {
+
+    UiHelper ui = new UiHelper(BrowserType.CHROME);
+    ModelManager model = new ModelManager();
+
+    public TestTheories() throws IOException {
+    }
+
 
     @Test
-    public void signUp() throws IOException, InterruptedException {
-        User currentUser = model.user().getUserFromJson();
-        app.api().signup(currentUser);
+    public void signUp()  {
+        User user = model.user().getUserFromJson();
+        Card card = new Card().withName(getRandomNameFromDryCodes()).withLink(getRandomPhotoFromUnsplash());
+        ui.signIn(user);
+        ui.addCard(card);
+        ui.signOut();
     }
 }

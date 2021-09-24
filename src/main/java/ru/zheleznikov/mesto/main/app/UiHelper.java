@@ -1,19 +1,18 @@
-package ru.zheleznikov.mesto.app;
+package ru.zheleznikov.mesto.main.app;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import ru.zheleznikov.mesto.model.Card;
-import ru.zheleznikov.mesto.model.User;
+import ru.zheleznikov.mesto.main.model.Card;
+import ru.zheleznikov.mesto.main.model.User;
 
 import java.io.IOException;
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ru.zheleznikov.mesto.utils.CommonHelper.getRandomName;
-import static ru.zheleznikov.mesto.utils.UnsplashHelper.getRandomPhotoFromUnsplash;
+import static ru.zheleznikov.mesto.main.utils.CommonHelper.getRandomName;
+import static ru.zheleznikov.mesto.main.utils.UnsplashHelper.getRandomPhotoFromUnsplash;
 
 public class UiHelper extends UiHelperBase {
     public final WebElement addCardButton = wd.findElement(By.cssSelector(".user-info__button"));
@@ -75,6 +74,8 @@ public class UiHelper extends UiHelperBase {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        acceptAlert();
 
     }
 

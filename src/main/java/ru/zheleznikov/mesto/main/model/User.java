@@ -1,4 +1,4 @@
-package ru.zheleznikov.mesto.model;
+package ru.zheleznikov.mesto.main.model;
 
 import com.google.gson.annotations.Expose;
 

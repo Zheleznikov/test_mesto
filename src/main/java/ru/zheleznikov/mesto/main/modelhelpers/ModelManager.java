@@ -1,6 +1,6 @@
-package ru.zheleznikov.mesto.modelhelpers;
+package ru.zheleznikov.mesto.main.modelhelpers;
 
-import ru.zheleznikov.mesto.app.ApiHelper;
+import ru.zheleznikov.mesto.main.app.ApiHelper;
 
 public class ModelManager {
     private final CardHelper cardHelper;

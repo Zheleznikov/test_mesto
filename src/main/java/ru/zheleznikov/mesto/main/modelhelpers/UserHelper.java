@@ -1,10 +1,10 @@
-package ru.zheleznikov.mesto.modelhelpers;
+package ru.zheleznikov.mesto.main.modelhelpers;
 
-import ru.zheleznikov.mesto.model.User;
+import ru.zheleznikov.mesto.main.model.User;
 
 import java.io.IOException;
 
-import static ru.zheleznikov.mesto.modelhelpers.GenerateNewUser.readUserJsonFile;
+import static ru.zheleznikov.mesto.main.modelhelpers.GenerateNewUser.readUserJsonFile;
 
 public class UserHelper {
 

@@ -1,7 +1,6 @@
-package ru.zheleznikov.mesto.app;
+package ru.zheleznikov.mesto.main.app;
 
 import org.openqa.selenium.remote.BrowserType;
-import ru.zheleznikov.mesto.modelhelpers.ModelManager;
 
 import java.io.IOException;
 
@@ -15,7 +14,6 @@ public class ApplicationManager {
     public void init() throws IOException {
         apiHelper = new ApiHelper();
         mongoHelper = new MongoHelper();
-        uiHelper = new UiHelper(BrowserType.CHROME);
     }
 
     public ApiHelper api() {
@@ -26,7 +24,8 @@ public class ApplicationManager {
         return this.mongoHelper;
     }
 
-    public UiHelper ui() {
+    public UiHelper ui() throws IOException {
+        uiHelper = new UiHelper(BrowserType.CHROME);
         return this.uiHelper;
     }
 
