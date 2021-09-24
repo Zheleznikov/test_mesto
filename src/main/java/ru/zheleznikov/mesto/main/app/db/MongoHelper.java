@@ -1,4 +1,4 @@
-package ru.zheleznikov.mesto.main.app;
+package ru.zheleznikov.mesto.main.app.db;
 
 
 import com.mongodb.BasicDBObject;
@@ -8,6 +8,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 import org.bson.types.ObjectId;
+import ru.zheleznikov.mesto.main.app.HelperBase;
 import ru.zheleznikov.mesto.main.model.Card;
 import ru.zheleznikov.mesto.main.model.User;
 
@@ -15,7 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MongoHelper extends  HelperBase {
+public class MongoHelper extends HelperBase {
 
     private final String MONGO_HOST = properties.getProperty("host.mongo");
 

@@ -1,8 +1,7 @@
-package ru.zheleznikov.mesto.cases;
+package ru.zheleznikov.mesto.cases.ui;
 
 import org.openqa.selenium.remote.BrowserType;
 import org.testng.annotations.Test;
-import ru.zheleznikov.mesto.main.app.ApiHelper;
 import ru.zheleznikov.mesto.main.app.UiHelper;
 import ru.zheleznikov.mesto.main.model.Card;
 import ru.zheleznikov.mesto.main.model.User;
@@ -17,7 +16,6 @@ public class AddCardSignedUserViaUI {
 
     UiHelper ui = new UiHelper(BrowserType.CHROME);
     ModelManager model = new ModelManager();
-    ApiHelper api = new ApiHelper();
 
     public AddCardSignedUserViaUI() throws IOException {
     }

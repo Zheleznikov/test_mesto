@@ -6,7 +6,7 @@ import java.util.Properties;
 
 public class HelperBase {
 
-    Properties properties;
+    protected Properties properties;
     String pathToProperties = "src/main/resources/%s.properties";
 
     public HelperBase() throws IOException {

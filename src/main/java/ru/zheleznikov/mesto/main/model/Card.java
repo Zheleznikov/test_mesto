@@ -2,6 +2,7 @@ package ru.zheleznikov.mesto.main.model;
 
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -22,8 +23,11 @@ public class Card {
     @Expose
     private List<String> likes;
 
-    @Expose
+//    @Expose
     private User owner;
+
+//    @Expose
+    private String ownerId;
 
 
 
@@ -37,6 +41,7 @@ public class Card {
                 ", link='" + link + '\'' +
                 ", likes=" + likes +
                 ", owner=" + owner +
+                ", ownerId=" + ownerId +
                 '}';
     }
 
@@ -47,8 +52,8 @@ public class Card {
         Card card = (Card) o;
         return Objects.equals(_id, card._id)
                 && Objects.equals(name, card.name)
-                && Objects.equals(link, card.link);
-//                && Objects.equals(likes, card.likes)
+                && Objects.equals(link, card.link)
+                && Objects.equals(likes.size(), card.likes.size());
 //                && Objects.equals(owner, card.owner);
     }
 

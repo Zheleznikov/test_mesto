@@ -1,4 +1,4 @@
-package ru.zheleznikov.mesto.cases;
+package ru.zheleznikov.mesto.cases.bases;
 
 import org.openqa.selenium.remote.BrowserType;
 import org.testng.annotations.BeforeClass;

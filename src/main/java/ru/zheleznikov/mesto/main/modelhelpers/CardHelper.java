@@ -3,7 +3,6 @@ package ru.zheleznikov.mesto.main.modelhelpers;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import ru.zheleznikov.mesto.main.app.ApiHelper;
 import ru.zheleznikov.mesto.main.model.Card;
 import ru.zheleznikov.mesto.main.model.User;
 
@@ -14,23 +13,48 @@ import java.util.stream.Collectors;
 import static ru.zheleznikov.mesto.main.utils.CommonHelper.getRandom;
 
 
-
 public class CardHelper {
 
-    public ApiHelper apiHelper;
-    public List<Card> cards = new ArrayList<>();
+    private Object cardToHandle;
 
-    public List<Card> getCardList() {
-        return cards;
-    }
+    protected List<Card> cards = new ArrayList<>();
+
+    private List<Object> listOfCardsToHandle = new ArrayList<>();
+
 
     public CardHelper() {
 
     }
 
-    public CardHelper(ApiHelper apiHelper2) {
-        apiHelper = apiHelper2;
+
+    public CardHelper(List<Object> listOfCardsToHandle) {
+        this.listOfCardsToHandle = listOfCardsToHandle;
     }
+
+    public CardHelper(Object cardToHandle) {
+        this.cardToHandle = cardToHandle;
+    }
+
+//    public CardHelper(Object cardToHandle) {
+//        this.cardToHandle = cardToHandle;
+//    }
+
+    public List<Card> asModelList() {
+        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        String json = gson.toJson(listOfCardsToHandle);
+        return gson.fromJson(json, new TypeToken<List<Card>>() {}.getType());// List<Card>.class
+    }
+
+    public Card asModel() {
+        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        String json = gson.toJson(cardToHandle);
+        return gson.fromJson(json, Card.class);
+    }
+
+    public List<Card> getList() {
+        return cards;
+    }
+
 
     public List<Card> generateCardList(List<Object> cardsFromApi) {
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
@@ -39,15 +63,6 @@ public class CardHelper {
         }.getType());// List<Card>.class
     }
 
-    public CardHelper generateCardList() {
-        List<Object> cardsFromApi = apiHelper.cards;
-        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-        String json = gson.toJson(cardsFromApi);
-         cards = gson.fromJson(json, new TypeToken<List<Card>>() {
-        }.getType());// List<Card>.class
-        return this;
-
-    }
 
     public Card getRandomCard(List<Card> cards) {
         return cards.get(getRandom(cards.size()));
