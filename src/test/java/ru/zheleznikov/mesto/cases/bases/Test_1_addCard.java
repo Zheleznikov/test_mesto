@@ -1,18 +1,10 @@
 package ru.zheleznikov.mesto.cases.bases;
 
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import ru.zheleznikov.mesto.main.model.Card;
-import ru.zheleznikov.mesto.main.model.User;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static ru.zheleznikov.mesto.main.utils.CommonHelper.getRandomName;
-import static ru.zheleznikov.mesto.main.utils.JsonHelper.generateStringToReq;
 import static ru.zheleznikov.mesto.main.utils.UnsplashHelper.getRandomNameFromDryCodes;
 import static ru.zheleznikov.mesto.main.utils.UnsplashHelper.getRandomPhotoFromUnsplash;
 
@@ -22,14 +14,12 @@ public class Test_1_addCard extends TestBase {
 
     @Test
     public void testAddCard_Ui_signedUser() throws IOException {
-        User currentUser = model.user().getUserFromJson();
         Card cardToAdd = new Card().setName(getRandomNameFromDryCodes()).setLink(getRandomPhotoFromUnsplash());
 
 //        List<Card> cardListBefore = app.api().getCards().model.card().generateCardList().getCardList();
 //        System.out.println(cardListBefore.size());
 
-        app.ui().signIn(currentUser);
-        app.ui().addCard(cardToAdd);
+
 //        app.ui().signOut();
 //
 //        CardHelper cards = app.api().getCards().model.card().generateCardList();

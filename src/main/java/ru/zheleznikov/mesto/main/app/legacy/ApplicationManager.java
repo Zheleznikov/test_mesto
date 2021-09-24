@@ -17,10 +17,6 @@ public class ApplicationManager {
     }
 
 
-    public MongoHelper db() {
-        return this.mongoHelper;
-    }
-
     public UiHelper ui() throws IOException {
         uiHelper = new UiHelper(BrowserType.CHROME);
         return this.uiHelper;
