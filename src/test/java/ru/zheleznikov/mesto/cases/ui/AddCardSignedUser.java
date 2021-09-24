@@ -7,8 +7,8 @@ import ru.zheleznikov.mesto.main.model.Card;
 
 import java.io.IOException;
 
-import static ru.zheleznikov.mesto.main.utils.UnsplashHelper.getRandomNameFromDryCodes;
-import static ru.zheleznikov.mesto.main.utils.UnsplashHelper.getRandomPhotoFromUnsplash;
+import static ru.zheleznikov.mesto.main.utils.ExternalApiHelper.getRandomNameFromDryCodes;
+import static ru.zheleznikov.mesto.main.utils.ExternalApiHelper.getRandomPhotoFromUnsplash;
 
 public class AddCardSignedUser {
 

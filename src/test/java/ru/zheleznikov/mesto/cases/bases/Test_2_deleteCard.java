@@ -1,18 +1,9 @@
 package ru.zheleznikov.mesto.cases.bases;
 
-import jdk.jfr.Description;
-import org.testng.annotations.Ignore;
-import org.testng.annotations.Test;
 import ru.zheleznikov.mesto.main.model.Card;
-import ru.zheleznikov.mesto.main.model.User;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-
-import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static ru.zheleznikov.mesto.main.utils.UnsplashHelper.getRandomPhotoFromUnsplash;
+import static ru.zheleznikov.mesto.main.utils.ExternalApiHelper.getRandomPhotoFromUnsplash;
 
 public class Test_2_deleteCard extends TestBase {
 

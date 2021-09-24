@@ -13,8 +13,8 @@ import java.util.List;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static ru.zheleznikov.mesto.main.utils.UnsplashHelper.getRandomNameFromDryCodes;
-import static ru.zheleznikov.mesto.main.utils.UnsplashHelper.getRandomPhotoFromUnsplash;
+import static ru.zheleznikov.mesto.main.utils.ExternalApiHelper.getRandomNameFromDryCodes;
+import static ru.zheleznikov.mesto.main.utils.ExternalApiHelper.getRandomPhotoFromUnsplash;
 
 public class TestAddCard {
 

@@ -18,8 +18,8 @@ import java.util.List;
 import java.util.Locale;
 
 import static ru.zheleznikov.mesto.main.utils.JsonHelper.readFile;
-import static ru.zheleznikov.mesto.main.utils.UnsplashHelper.getRandomNameFromDryCodes;
-import static ru.zheleznikov.mesto.main.utils.UnsplashHelper.getRandomPhotoFromUnsplash;
+import static ru.zheleznikov.mesto.main.utils.ExternalApiHelper.getRandomNameFromDryCodes;
+import static ru.zheleznikov.mesto.main.utils.ExternalApiHelper.getRandomPhotoFromUnsplash;
 
 public class GenerateNewUser extends HelperBase {
 

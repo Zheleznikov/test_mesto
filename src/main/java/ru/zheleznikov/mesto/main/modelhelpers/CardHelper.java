@@ -11,14 +11,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static ru.zheleznikov.mesto.main.utils.CommonHelper.getRandom;
+import static ru.zheleznikov.mesto.main.utils.JsonHelper.generateCard;
+import static ru.zheleznikov.mesto.main.utils.JsonHelper.generateCardList;
 
 
 public class CardHelper {
 
     private Object cardToHandle;
-
-    protected List<Card> cards = new ArrayList<>();
-
+    private List<Card> cards = new ArrayList<>();
     private List<Object> listOfCardsToHandle = new ArrayList<>();
 
 
@@ -35,32 +35,17 @@ public class CardHelper {
         this.cardToHandle = cardToHandle;
     }
 
-//    public CardHelper(Object cardToHandle) {
-//        this.cardToHandle = cardToHandle;
-//    }
 
     public List<Card> asModelList() {
-        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-        String json = gson.toJson(listOfCardsToHandle);
-        return gson.fromJson(json, new TypeToken<List<Card>>() {}.getType());// List<Card>.class
+        return generateCardList(listOfCardsToHandle);
     }
 
     public Card asModel() {
-        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-        String json = gson.toJson(cardToHandle);
-        return gson.fromJson(json, Card.class);
+        return generateCard(cardToHandle);
     }
 
     public List<Card> getList() {
         return cards;
-    }
-
-
-    public List<Card> generateCardList(List<Object> cardsFromApi) {
-        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-        String json = gson.toJson(cardsFromApi);
-        return gson.fromJson(json, new TypeToken<List<Card>>() {
-        }.getType());// List<Card>.class
     }
 
 

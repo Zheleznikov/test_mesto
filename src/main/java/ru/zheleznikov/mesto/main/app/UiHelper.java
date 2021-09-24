@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static ru.zheleznikov.mesto.main.utils.CommonHelper.getRandomName;
-import static ru.zheleznikov.mesto.main.utils.UnsplashHelper.getRandomPhotoFromUnsplash;
+import static ru.zheleznikov.mesto.main.utils.ExternalApiHelper.getRandomPhotoFromUnsplash;
 
 public class UiHelper extends UiHelperBase {
     public final WebElement addCardButton = wd.findElement(By.cssSelector(".user-info__button"));
