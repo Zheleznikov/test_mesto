@@ -1,9 +1,13 @@
 package ru.zheleznikov.mesto.main.model;
 
 import com.google.gson.annotations.Expose;
+import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.util.Objects;
 
+@Data
+@Accessors(chain = true)
 public class User {
 
     @Override

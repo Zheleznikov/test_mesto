@@ -17,15 +17,15 @@ import static ru.zheleznikov.mesto.main.utils.UnsplashHelper.getRandomPhotoFromU
 public class Test_2_deleteCard extends TestBase {
 
     Card cardToAdd = new Card()
-            .withName("Card to del")
-            .withLink(getRandomPhotoFromUnsplash());
+            .setName("Card to del")
+            .setLink(getRandomPhotoFromUnsplash());
 
 
     @Test
     @Description("Signed user trying to delete his card")
     public void testDeleteCard_Ui_cardBelongsToUser() throws IOException {
         User currentUser = model.user().getUserFromJson().preparedForSignIn();
-        currentUser.with_id(app.api().getCurrentUserId(currentUser));
+        currentUser.set_id(app.api().getCurrentUserId(currentUser));
 
         List<Card> cardsBefore = app.api().getCards().model.card().generateCardList().getCardList();
         List<Card> currentUserCards = model.card().getExactUserCards(cardsBefore, currentUser);
@@ -34,7 +34,7 @@ public class Test_2_deleteCard extends TestBase {
 
         if (currentUserCards.size() == 0) {
             Map<String, String> cardData = app.api().addCard(cardToAdd, currentUser);
-            cardToDelete = new Card().with_id(cardData.get("_id"));
+            cardToDelete = new Card().set_id(cardData.get("_id"));
         } else {
             cardToDelete = model.card().getRandomCard(currentUserCards);
         }
@@ -56,7 +56,7 @@ public class Test_2_deleteCard extends TestBase {
     @Description("Signed user trying to delete other card")
     public void testDeleteCard_Ui_cardDoesNotBelongToUser() throws IOException {
         User currentUser = model.user().getUserFromJson().preparedForSignIn();
-        currentUser.with_id(app.api().getCurrentUserId(currentUser));
+        currentUser.set_id(app.api().getCurrentUserId(currentUser));
 
         List<Card> cardsBefore = app.api().getCards().model.card().generateCardList().getCardList();
         List<Card> otherContactsCards = model.card().getOtherUsersCard(cardsBefore, currentUser);
@@ -68,7 +68,7 @@ public class Test_2_deleteCard extends TestBase {
         app.api().signup(helperUser);
         Map<String, String> addedCardData = app.api().addCard(cardToAdd, helperUser.preparedForSignIn());
         System.out.println(addedCardData);
-        cardToDelete = new Card().with_id(addedCardData.get("_id"));
+        cardToDelete = new Card().set_id(addedCardData.get("_id"));
 
         }
         else {

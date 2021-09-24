@@ -25,7 +25,7 @@ public class TestTheories  {
     @Test
     public void signUp()  {
         User user = model.user().getUserFromJson();
-        Card card = new Card().withName(getRandomNameFromDryCodes()).withLink(getRandomPhotoFromUnsplash());
+        Card card = new Card().setName(getRandomNameFromDryCodes()).setLink(getRandomPhotoFromUnsplash());
         ui.signIn(user);
         ui.addCard(card);
         ui.signOut();

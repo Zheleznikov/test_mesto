@@ -90,9 +90,9 @@ public class UiHelper extends UiHelperBase {
             String name = card.findElement(By.xpath(".//h3")).getText();
             listOfCards.add(
                     new Card()
-                            .withName(name)
-                            .with_id(id)
-                            .withLink(sub)
+                            .setName(name)
+                            .set_id(id)
+                            .setLink(sub)
             );
 
         });
@@ -107,9 +107,9 @@ public class UiHelper extends UiHelperBase {
         String sub = link.substring(5, link.length() - 2);
         String name = lastCard.findElement(By.xpath(".//h3")).getText();
         return new Card()
-                .withName(name)
-                .with_id(id)
-                .withLink(sub);
+                .setName(name)
+                .set_id(id)
+                .setLink(sub);
     }
 
     public void deleteExactCard(Card cardToDel) {

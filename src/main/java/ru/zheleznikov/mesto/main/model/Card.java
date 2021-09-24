@@ -2,10 +2,14 @@ package ru.zheleznikov.mesto.main.model;
 
 
 import com.google.gson.annotations.Expose;
+import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.util.List;
 import java.util.Objects;
 
+@Data
+@Accessors(chain = true)
 public class Card {
 
     @Expose
@@ -21,51 +25,9 @@ public class Card {
     @Expose
     private User owner;
 
-    public User getOwner() {
-        return owner;
-    }
-
-    public Card withOwner(User owner) {
-        this.owner = owner;
-        return this;
-    }
-
-    public int getLikes() {
-        return likes.size();
-    }
-
-    public Card withLikes(List<String> likes) {
-        this.likes = likes;
-        return this;
-    }
 
 
-    public String get_id() {
-        return _id;
-    }
 
-    public Card with_id(String _id) {
-        this._id = _id;
-        return this;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Card withName(String name) {
-        this.name = name;
-        return this;
-    }
-
-    public String getLink() {
-        return link;
-    }
-
-    public Card withLink(String link) {
-        this.link = link;
-        return this;
-    }
 
     @Override
     public String toString() {

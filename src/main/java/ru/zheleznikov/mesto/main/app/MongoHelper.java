@@ -43,19 +43,19 @@ public class MongoHelper extends  HelperBase {
 
 
             User user = new User()
-                    .with_id(owner.get("_id").toString())
-                    .withName(owner.get("name").toString())
-                    .withAbout(owner.get("about").toString())
-                    .withEmail(owner.get("email").toString())
-                    .withAvatar(owner.get("avatar").toString());
+                    .set_id(owner.get("_id").toString())
+                    .setName(owner.get("name").toString())
+                    .setAbout(owner.get("about").toString())
+                    .setEmail(owner.get("email").toString())
+                    .setAvatar(owner.get("avatar").toString());
 
             cardsToSee.add(
                     new Card()
-                            .with_id(card.get("_id").toString())
-                            .withOwner(user)
-                            .withLikes((List<String>) card.get("likes"))
-                            .withName(card.get("name").toString())
-                            .withLink(card.get("link").toString())
+                            .set_id(card.get("_id").toString())
+                            .setOwner(user)
+                            .setLikes((List<String>) card.get("likes"))
+                            .setName(card.get("name").toString())
+                            .setLink(card.get("link").toString())
 
             );
         }

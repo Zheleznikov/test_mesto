@@ -23,7 +23,7 @@ public class Test_1_addCard extends TestBase {
     @Test
     public void testAddCard_Ui_signedUser() throws IOException {
         User currentUser = model.user().getUserFromJson();
-        Card cardToAdd = new Card().withName(getRandomNameFromDryCodes()).withLink(getRandomPhotoFromUnsplash());
+        Card cardToAdd = new Card().setName(getRandomNameFromDryCodes()).setLink(getRandomPhotoFromUnsplash());
 
 //        List<Card> cardListBefore = app.api().getCards().model.card().generateCardList().getCardList();
 //        System.out.println(cardListBefore.size());
@@ -44,7 +44,7 @@ public class Test_1_addCard extends TestBase {
 
     @Test
     public void testAddCard_Ui_unsignedUser() throws IOException {
-        Card cardToAdd = new Card().withName(getRandomNameFromDryCodes()).withLink(getRandomPhotoFromUnsplash());
+        Card cardToAdd = new Card().setName(getRandomNameFromDryCodes()).setLink(getRandomPhotoFromUnsplash());
 
         List<Card> cardListBefore = app.api().getCards().model.card().generateCardList().getCardList();
 
@@ -59,11 +59,11 @@ public class Test_1_addCard extends TestBase {
     @Test
     public void testAddCard_Api() {
         User currentUser = model.user().getUserFromJson().preparedForSignIn();
-        Card cardToAdd = new Card().withName(getRandomNameFromDryCodes()).withLink(getRandomPhotoFromUnsplash());
+        Card cardToAdd = new Card().setName(getRandomNameFromDryCodes()).setLink(getRandomPhotoFromUnsplash());
 
         List<Card> cardListBefore = app.api().getCards().model.card().generateCardList().getCardList();
         Map<String, String> addedCardData = app.api().addCard(cardToAdd, currentUser);
-        cardListBefore.add(cardToAdd.with_id(addedCardData.get("_id")));
+        cardListBefore.add(cardToAdd.set_id(addedCardData.get("_id")));
 
         List<Card> cardListAfter = app.api().getCards().model.card().generateCardList().getCardList();
 
@@ -74,12 +74,12 @@ public class Test_1_addCard extends TestBase {
     @Test
     @Ignore
     public void testAddCard_Db() throws IOException {
-        Card cardToAdd = new Card().withName(getRandomName()).withLink(getRandomPhotoFromUnsplash());
+        Card cardToAdd = new Card().setName(getRandomName()).setLink(getRandomPhotoFromUnsplash());
         List<Card> cardsBefore = app.db().getCards();
 
         String body = generateStringToReq(cardToAdd);
         Map<String, String> cardData = app.api().addCard(body);
-        cardsBefore.add(cardToAdd.with_id(cardData.get("_id")));
+        cardsBefore.add(cardToAdd.set_id(cardData.get("_id")));
 
         List<Card> cardsAfter = app.db().getCards();
 
