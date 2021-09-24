@@ -7,12 +7,9 @@ import ru.zheleznikov.mesto.main.app.HelperBase;
 import ru.zheleznikov.mesto.main.modelhelpers.CardHelper;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ApiBase extends HelperBase {
     public CardHelper handleRs;
-    public List<Object> cards = new ArrayList<>();
 
     protected ApiBase() throws IOException {
     }
@@ -20,7 +17,6 @@ public class ApiBase extends HelperBase {
     RequestSpecification reqSpec() {
         return new RequestSpecBuilder()
                 .setBaseUri(properties.getProperty("host.api"))
-                .setContentType(ContentType.JSON)
-                .build();
+                .setContentType(ContentType.JSON).build();
     }
 }

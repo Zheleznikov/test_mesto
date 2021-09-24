@@ -1,7 +1,6 @@
 package ru.zheleznikov.mesto.main.app.api;
 
 import com.google.gson.Gson;
-import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import ru.zheleznikov.mesto.main.model.Card;
 import ru.zheleznikov.mesto.main.model.User;
@@ -22,9 +21,10 @@ public class AddCard extends ApiBase {
     }
 
     public AddCard sendRq(Card card, User user) {
-        User user2 = new User().setPassword(properties.getProperty("default.pass")).setEmail(user.getEmail());
-        Response res = reqPostCard(generateStringToReq(card), new Gson().toJson(user2));
-        Object cardAsObj = res.then().extract().jsonPath().getJsonObject("data");
+        String preparedUser = processUser(user);
+        String preparedCard = processCard(card);
+        Object cardAsObj = reqPostCard(preparedCard, preparedUser)
+                .then().extract().jsonPath().getJsonObject("data");
         handleRs = new CardHelper(cardAsObj);
         return this;
     }
@@ -36,6 +36,17 @@ public class AddCard extends ApiBase {
                 .body(cardData)
                 .post(properties.getProperty("api.addCard"));
     }
+
+
+    private String processUser(User user) {
+        User userUpdated = new User().setPassword(properties.getProperty("default.pass")).setEmail(user.getEmail());
+        return new Gson().toJson(userUpdated);
+    }
+
+    private String processCard(Card card) {
+        return generateStringToReq(card);
+    }
+
 
 
 }

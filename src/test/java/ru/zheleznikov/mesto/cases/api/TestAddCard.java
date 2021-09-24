@@ -29,8 +29,8 @@ public class TestAddCard {
 
     @Test
     public void test_AddCard() {
-        List<Card> cardsBefore = getCards.sendRq().handleRs.asModelList();
         User user = model.user().getUserFromJson();
+        List<Card> cardsBefore = getCards.sendRq().handleRs.asModelList();
         Card cardToAdd = new Card().setName(getRandomNameFromDryCodes()).setLink(getRandomPhotoFromUnsplash());
         Card cardUpdated = addCard.sendRq(cardToAdd, user).handleRs.asModel();
         List<Card> cardsAfter = getCards.sendRq().handleRs.asModelList();

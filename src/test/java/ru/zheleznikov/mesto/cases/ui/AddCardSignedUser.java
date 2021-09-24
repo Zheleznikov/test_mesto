@@ -12,12 +12,12 @@ import java.io.IOException;
 import static ru.zheleznikov.mesto.main.utils.UnsplashHelper.getRandomNameFromDryCodes;
 import static ru.zheleznikov.mesto.main.utils.UnsplashHelper.getRandomPhotoFromUnsplash;
 
-public class AddCardSignedUserViaUI {
+public class AddCardSignedUser {
 
     UiHelper ui = new UiHelper(BrowserType.CHROME);
     ModelManager model = new ModelManager();
 
-    public AddCardSignedUserViaUI() throws IOException {
+    public AddCardSignedUser() throws IOException {
     }
 
     @Test

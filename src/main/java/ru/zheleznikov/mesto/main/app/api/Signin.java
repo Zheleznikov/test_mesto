@@ -1,6 +1,5 @@
 package ru.zheleznikov.mesto.main.app.api;
 
-import io.restassured.RestAssured;
 import io.restassured.response.Response;
 
 import java.io.IOException;
